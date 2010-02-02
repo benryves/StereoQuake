@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C++ Express 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "winquake", "WinQuake.vcproj", "{D594A522-8F02-4D01-8F13-7A4D84108106}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1042DB6A-A53F-4FE9-9E9A-AAFABF9FA20D} = {1042DB6A-A53F-4FE9-9E9A-AAFABF9FA20D}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gas2masm", "gas2masm\gas2masm.vcproj", "{1042DB6A-A53F-4FE9-9E9A-AAFABF9FA20D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		GL Debug|Win32 = GL Debug|Win32
+		GL Release|Win32 = GL Release|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D594A522-8F02-4D01-8F13-7A4D84108106}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D594A522-8F02-4D01-8F13-7A4D84108106}.Debug|Win32.Build.0 = Debug|Win32
+		{D594A522-8F02-4D01-8F13-7A4D84108106}.GL Debug|Win32.ActiveCfg = GL Debug|Win32
+		{D594A522-8F02-4D01-8F13-7A4D84108106}.GL Debug|Win32.Build.0 = GL Debug|Win32
+		{D594A522-8F02-4D01-8F13-7A4D84108106}.GL Release|Win32.ActiveCfg = GL Release|Win32
+		{D594A522-8F02-4D01-8F13-7A4D84108106}.GL Release|Win32.Build.0 = GL Release|Win32
+		{D594A522-8F02-4D01-8F13-7A4D84108106}.Release|Win32.ActiveCfg = Release|Win32
+		{D594A522-8F02-4D01-8F13-7A4D84108106}.Release|Win32.Build.0 = Release|Win32
+		{1042DB6A-A53F-4FE9-9E9A-AAFABF9FA20D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1042DB6A-A53F-4FE9-9E9A-AAFABF9FA20D}.Debug|Win32.Build.0 = Debug|Win32
+		{1042DB6A-A53F-4FE9-9E9A-AAFABF9FA20D}.GL Debug|Win32.ActiveCfg = Debug|Win32
+		{1042DB6A-A53F-4FE9-9E9A-AAFABF9FA20D}.GL Debug|Win32.Build.0 = Debug|Win32
+		{1042DB6A-A53F-4FE9-9E9A-AAFABF9FA20D}.GL Release|Win32.ActiveCfg = Release|Win32
+		{1042DB6A-A53F-4FE9-9E9A-AAFABF9FA20D}.GL Release|Win32.Build.0 = Release|Win32
+		{1042DB6A-A53F-4FE9-9E9A-AAFABF9FA20D}.Release|Win32.ActiveCfg = Release|Win32
+		{1042DB6A-A53F-4FE9-9E9A-AAFABF9FA20D}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
