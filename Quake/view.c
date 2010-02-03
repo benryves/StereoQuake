@@ -1054,9 +1054,13 @@ void V_RenderView (void)
 	}
 
 #ifndef GLQUAKE
-	if (crosshair.value)
-		Draw_Character (scr_vrect.x + scr_vrect.width/2 + cl_crossx.value, 
-			scr_vrect.y + scr_vrect.height/2 + cl_crossy.value, '+');
+	if (crosshair.value) {
+		Draw_Character (
+			scr_vrect.x + scr_vrect.width / 2 + cl_crossx.value,
+			(lcd_x.value) ? (scr_vrect.y * 2 + scr_vrect.height) : (scr_vrect.y + scr_vrect.height / 2) + cl_crossy.value,
+			'+'
+		);
+	}
 #endif
 		
 }
