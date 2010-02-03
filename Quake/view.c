@@ -1023,7 +1023,13 @@ void V_RenderView (void)
 		//
 		// render two interleaved views
 		//
-		int		i;
+		int         i;
+		entity_t    *view;
+		float       inv_lcd_viewmodel_scale;
+
+		view = &cl.viewent;
+		
+		inv_lcd_viewmodel_scale = 1.0f - lcd_viewmodel_scale.value;
 
 		VID_LockBuffer();
 
@@ -1031,17 +1037,25 @@ void V_RenderView (void)
 		vid.aspect *= 0.5;
 
 		r_refdef.viewangles[YAW] -= lcd_yaw.value;
-		for (i=0 ; i<3 ; i++)
-			r_refdef.vieworg[i] -= right[i]*lcd_x.value;
+		view->angles[YAW] -= lcd_yaw.value * inv_lcd_viewmodel_scale;
+		for (i=0 ; i<3 ; i++) {
+			r_refdef.vieworg[i] -= right[i] * lcd_x.value;
+			view->origin[i] -= right[i] * lcd_x.value * inv_lcd_viewmodel_scale;
+		}
+
 		R_RenderView ();
 
 		vid.buffer += vid.rowbytes>>1;
 
 		R_PushDlights ();
 
-		r_refdef.viewangles[YAW] += lcd_yaw.value*2;
-		for (i=0 ; i<3 ; i++)
-			r_refdef.vieworg[i] += 2*right[i]*lcd_x.value;
+		r_refdef.viewangles[YAW] += lcd_yaw.value * 2;
+		view->angles[YAW] += lcd_yaw.value * 2 * inv_lcd_viewmodel_scale;
+		for (i=0 ; i<3 ; i++) {
+			r_refdef.vieworg[i] += 2 * right[i] * lcd_x.value;
+			view->origin[i] += 2 * right[i] * lcd_x.value * inv_lcd_viewmodel_scale;
+		}
+
 		R_RenderView ();
 
 		vid.buffer -= vid.rowbytes>>1;

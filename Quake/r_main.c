@@ -139,10 +139,6 @@ cvar_t	r_aliastransadj = {"r_aliastransadj", "100"};
 
 extern cvar_t	scr_fov;
 
-extern cvar_t	lcd_x;
-extern cvar_t	lcd_yaw;
-extern cvar_t	lcd_viewmodel_scale;
-
 void CreatePassages (void);
 void SetVisibilityByPassages (void);
 
@@ -630,17 +626,7 @@ void R_DrawViewModel (void)
 	if (!currententity->model)
 		return;
 
-	if (lcd_x.value || lcd_yaw.value) {
-		// Interpolate position of weapon between the current entity origin and the actual viewpoint to reduce the excessive stereo separation.
-		for (j = 0; j < 3; ++j) {
-			r_entorigin[j] = r_refdef.vieworg[j] + (currententity->origin[j] - r_refdef.vieworg[j]) * lcd_viewmodel_scale.value;
-		}
-		// Interpolate yaw to match the above translation fix.
-		currententity->angles[YAW] = r_refdef.viewangles[YAW] + (currententity->angles[YAW] - r_refdef.viewangles[YAW]) * lcd_viewmodel_scale.value;
-	} else {
-		// Just put the weapon at the current entity origin.
-		VectorCopy (currententity->origin, r_entorigin);
-	}
+	VectorCopy (currententity->origin, r_entorigin);
 	VectorSubtract (r_origin, r_entorigin, modelorg);
 
 	VectorCopy (vup, viewlightvec);
