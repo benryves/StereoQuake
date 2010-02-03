@@ -33,6 +33,7 @@ when crossing a water boudnary.
 
 cvar_t		lcd_x = {"lcd_x","0"};
 cvar_t		lcd_yaw = {"lcd_yaw","0"};
+cvar_t		lcd_viewmodel_scale = { "lcd_viewmodel_scale","1" };
 
 cvar_t	scr_ofsx = {"scr_ofsx","0", false};
 cvar_t	scr_ofsy = {"scr_ofsy","0", false};
@@ -1080,6 +1081,7 @@ void V_Init (void)
 
 	Cvar_RegisterVariable (&lcd_x);
 	Cvar_RegisterVariable (&lcd_yaw);
+	Cvar_RegisterVariable (&lcd_viewmodel_scale);
 
 	Cvar_RegisterVariable (&v_centermove);
 	Cvar_RegisterVariable (&v_centerspeed);
