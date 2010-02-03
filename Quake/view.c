@@ -1025,6 +1025,8 @@ void V_RenderView (void)
 		//
 		int		i;
 
+		VID_LockBuffer();
+
 		vid.rowbytes <<= 1;
 		vid.aspect *= 0.5;
 
@@ -1048,6 +1050,8 @@ void V_RenderView (void)
 
 		vid.rowbytes >>= 1;
 		vid.aspect *= 2;
+
+		VID_UnlockBuffer();
 	}
 	else
 	{
