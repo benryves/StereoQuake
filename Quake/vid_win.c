@@ -344,7 +344,8 @@ int VID_Suspend (MGLDC *dc,m_int flags)
 
 		return MGL_NO_SUSPEND_APP;
 	}
-
+	
+	return MGL_NO_DEACTIVATE;
 }
 
 
@@ -1211,6 +1212,17 @@ void DestroyFullDIBWindow (void)
 	}
 }
 
+int VID_GetScanline0Offset(void) {
+	if (modestate == MS_WINDOWED) {
+		// Windowed, return the top of the window's client rectangle.
+		POINT p = { 0, 0 };
+		ClientToScreen(mainwindow, &p);
+		return p.y;
+	} else {
+		// Full-screen, scanline 0 is implicitly at scanline 0.
+		return 0;
+	}
+}
 
 qboolean VID_SetWindowedMode (int modenum)
 {

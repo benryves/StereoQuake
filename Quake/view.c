@@ -1026,21 +1026,33 @@ void V_RenderView (void)
 		int         i;
 		entity_t    *view;
 		float       inv_lcd_viewmodel_scale;
+		float       lcd_x_amount, lcd_yaw_amount;
 
+		// The current weapon model.
 		view = &cl.viewent;
 		
+		// We need to invert the behaviour of the viewmodel_scale (0 means 2D weapon, 1 means fully 3D).
 		inv_lcd_viewmodel_scale = 1.0f - lcd_viewmodel_scale.value;
+
+		lcd_x_amount = lcd_x.value;
+		lcd_yaw_amount = lcd_yaw.value;
+
+		// If the first scanline of the display is offset from the top of the screen, invert the X
+		if (VID_GetScanline0Offset() & 1) {
+			lcd_x_amount = -lcd_x_amount;
+			lcd_yaw_amount = -lcd_yaw_amount;
+		}
 
 		VID_LockBuffer();
 
 		vid.rowbytes <<= 1;
 		vid.aspect *= 0.5;
 
-		r_refdef.viewangles[YAW] -= lcd_yaw.value;
-		view->angles[YAW] -= lcd_yaw.value * inv_lcd_viewmodel_scale;
+		r_refdef.viewangles[YAW] -= lcd_yaw_amount;
+		view->angles[YAW] -= lcd_yaw_amount * inv_lcd_viewmodel_scale;
 		for (i=0 ; i<3 ; i++) {
-			r_refdef.vieworg[i] -= right[i] * lcd_x.value;
-			view->origin[i] -= right[i] * lcd_x.value * inv_lcd_viewmodel_scale;
+			r_refdef.vieworg[i] -= right[i] * lcd_x_amount;
+			view->origin[i] -= right[i] * lcd_x_amount * inv_lcd_viewmodel_scale;
 		}
 
 		R_RenderView ();
@@ -1049,11 +1061,11 @@ void V_RenderView (void)
 
 		R_PushDlights ();
 
-		r_refdef.viewangles[YAW] += lcd_yaw.value * 2;
-		view->angles[YAW] += lcd_yaw.value * 2 * inv_lcd_viewmodel_scale;
+		r_refdef.viewangles[YAW] += lcd_yaw_amount * 2;
+		view->angles[YAW] += lcd_yaw_amount * 2 * inv_lcd_viewmodel_scale;
 		for (i=0 ; i<3 ; i++) {
-			r_refdef.vieworg[i] += 2 * right[i] * lcd_x.value;
-			view->origin[i] += 2 * right[i] * lcd_x.value * inv_lcd_viewmodel_scale;
+			r_refdef.vieworg[i] += 2 * right[i] * lcd_x_amount;
+			view->origin[i] += 2 * right[i] * lcd_x_amount * inv_lcd_viewmodel_scale;
 		}
 
 		R_RenderView ();
