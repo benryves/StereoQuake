@@ -77,6 +77,7 @@
 				OutputFile=".\Release/WinQuake.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
+				IgnoreDefaultLibraryNames="LIBC.lib"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -167,6 +168,7 @@
 				OutputFile=".\release_gl\glquake.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
+				IgnoreDefaultLibraryNames="LIBC.lib"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -350,6 +352,7 @@
 				OutputFile=".\debug_gl\glquake.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
+				IgnoreDefaultLibraryNames="LIBC.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\debug_gl/glquake.pdb"
 				SubSystem="2"
@@ -926,11 +929,38 @@
 				RelativePath=".\d_draw.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -939,11 +969,38 @@
 				RelativePath=".\d_draw16.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -1167,11 +1224,38 @@
 				RelativePath=".\d_parta.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -1180,11 +1264,38 @@
 				RelativePath=".\d_polysa.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -1279,11 +1390,38 @@
 				RelativePath=".\d_scana.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -1335,11 +1473,38 @@
 				RelativePath=".\d_spr8.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -1477,11 +1642,38 @@
 				RelativePath=".\d_varsa.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -2256,11 +2448,38 @@
 				RelativePath=".\math.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -2847,11 +3066,38 @@
 				RelativePath=".\r_aclipa.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -2903,11 +3149,38 @@
 				RelativePath=".\r_aliasa.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -3002,11 +3275,38 @@
 				RelativePath=".\r_drawa.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -3058,11 +3358,38 @@
 				RelativePath=".\r_edgea.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -3456,11 +3783,38 @@
 				RelativePath=".\r_varsa.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -3676,11 +4030,38 @@
 				RelativePath=".\snd_mixa.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -3730,11 +4111,38 @@
 				RelativePath=".\surf16.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -3743,11 +4151,38 @@
 				RelativePath=".\surf8.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -3961,11 +4396,38 @@
 				RelativePath=".\sys_wina.asm"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
+						Outputs="$(OutDir)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)"
 						Outputs="$(OutDir)\$(InputName).obj"
 					/>
 				</FileConfiguration>
@@ -4176,7 +4638,34 @@
 				RelativePath=".\worlda.s"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\debug\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\debug\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\debug\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="GL Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
