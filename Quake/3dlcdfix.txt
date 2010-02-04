@@ -1,0 +1,47 @@
+WinQuake with fixes for 3D modes
+--------------------------------
+
+This is a drop-in replacement for the original WinQuake that aims to fix minor
+problems with its existing 3D glasses mode.
+
+The interlaced 3D mode can be activated as in the original WinQuake by setting
+the LCD_X and LCD_YAW console variables. LCD_X controls the camera offset and
+LCD_YAW controls the camera rotation.
+
+Installation
+------------
+
+Simply overwrite the existing WinQuake.exe with the new one from this archive.
+
+You will also need the Visual C++ 2008 SP1 runtimes, which can be downloaded
+from the following link if you have not installed them previously:
+
+http://www.microsoft.com/downloads/details.aspx?FamilyID=A5C84275-3B97-4AB7-A40D-3802B2AF5FC2
+
+Differences between this version and regular WinQuake
+-----------------------------------------------------
+
+1. Non-DIB modes should work. Regular WinQuake displays a distorted image in
+fullscreen unless you pass the -dibonly command-line switch. This version
+corrects the distortion, but modern versions of Windows don't seem to be very
+happy about 256-colour modes so you may still have problems - especially with
+multi-monitor configurations. If you get scrambled colours, or even no image
+at all, try the -dibonly switch.
+
+2. The crosshair is shown in the middle of the screen. Regular WinQuake puts
+it a quarter of the way down the screen.
+
+3. Stereo separation of the player's weapon can be adjusted with a new console
+variable, LCD_VIEWMODEL_SCALE. This scales the 3D effect between 0 (2D) and 1
+(3D). It defaults to 1, which will render in the same way as regular WinQuake.
+The model is so close to the camera that it produces an uncomfortable double
+image at all but the most conservative LCD_X settings, so set this to a small
+value to "flatten" it (at 0 the weapon will appear like a cardboard cutout).
+Note that at small values the reduced 3D effect can place the weapon *behind*
+nearby walls or floors. Some experimentation may be required to find a
+comfortable setting.
+
+Contact
+-------
+
+Found a bug, or have a question? Contact me at benryves@benryves.com
