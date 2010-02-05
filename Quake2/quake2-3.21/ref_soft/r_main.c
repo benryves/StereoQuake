@@ -996,15 +996,15 @@ R_RenderFrame
 void R_RenderFrame (refdef_t *fd)
 {
 
+	r_newrefdef = *fd;
+
 	if (cl_stereo->value) {
-		fd->height /= 2;
+		r_newrefdef.height /= 2;
 		if ((r_framecount & 1) != 0) { // FIXME
 			vid.buffer += vid.rowbytes;
 		}
 		vid.rowbytes *= 2;
 	}
-
-	r_newrefdef = *fd;
 
 	if (!r_worldmodel && !( r_newrefdef.rdflags & RDF_NOWORLDMODEL ) )
 		ri.Sys_Error (ERR_FATAL,"R_RenderView: NULL worldmodel");
@@ -1067,7 +1067,7 @@ void R_RenderFrame (refdef_t *fd)
 		R_PrintDSpeeds ();
 
 	if (cl_stereo->value) {
-		fd->height *= 2;
+		r_newrefdef.height *= 2;
 		vid.rowbytes /= 2;
 		if ((r_framecount & 1) == 0) { // FIXME
 			vid.buffer -= vid.rowbytes;
