@@ -69,6 +69,11 @@ vec3_t	vright, base_vright;
 vec3_t	r_origin;
 
 //
+// current camera separation
+//
+float   r_camera_separation;
+
+//
 // screen size info
 //
 oldrefdef_t	r_refdef;
@@ -141,6 +146,7 @@ cvar_t	*sw_lockpvs;
 //PGM
 
 cvar_t *cl_stereo;
+cvar_t *cl_stereo_separation;
 
 
 #define	STRINGER(x) "x"
@@ -274,6 +280,7 @@ void R_Register (void)
 	r_novis = ri.Cvar_Get( "r_novis", "0", 0 );
 
 	cl_stereo = ri.Cvar_Get("cl_stereo", "0", 0);
+	cl_stereo_separation = ri.Cvar_Get("cl_stereo_separation", "0", 0);
 
 	vid_fullscreen = ri.Cvar_Get( "vid_fullscreen", "0", CVAR_ARCHIVE );
 	vid_gamma = ri.Cvar_Get( "vid_gamma", "1.0", CVAR_ARCHIVE );
@@ -996,12 +1003,19 @@ R_RenderFrame
 void R_RenderFrame (refdef_t *fd)
 {
 
+	int offset_one_scanline;
+
 	r_newrefdef = *fd;
 
+	if (cl_stereo_separation->value) {
+		offset_one_scanline = (r_camera_separation > 0) ^ (cl_stereo_separation->value > 0);
+	} else {
+		// Just alternate the scanline offset every frame.
+		offset_one_scanline = r_framecount & 1;
+	}
+
 	if (cl_stereo->value) {
-		if ((r_framecount & 1) != 0) { // FIXME
-			vid.buffer += vid.rowbytes;
-		}
+		if (offset_one_scanline) vid.buffer += vid.rowbytes;
 		vid.rowbytes *= 2;
 	}
 
@@ -1067,9 +1081,7 @@ void R_RenderFrame (refdef_t *fd)
 
 	if (cl_stereo->value) {
 		vid.rowbytes /= 2;
-		if ((r_framecount & 1) == 0) { // FIXME
-			vid.buffer -= vid.rowbytes;
-		}
+		if (offset_one_scanline) vid.buffer -= vid.rowbytes;
 	}
 
 	if (sw_reportsurfout->value && r_outofsurfaces)
@@ -1166,6 +1178,8 @@ void R_BeginFrame( float camera_separation )
 			}
 		}
 	}
+
+	r_camera_separation = camera_separation;
 }
 
 /*
