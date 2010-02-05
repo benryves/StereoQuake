@@ -69,9 +69,10 @@ vec3_t	vright, base_vright;
 vec3_t	r_origin;
 
 //
-// current camera separation
+// current camera separation and whether to offset by a scanline or not.
 //
 float   r_camera_separation;
+int     offset_one_scanline;
 
 //
 // screen size info
@@ -1003,16 +1004,7 @@ R_RenderFrame
 void R_RenderFrame (refdef_t *fd)
 {
 
-	int offset_one_scanline;
-
 	r_newrefdef = *fd;
-
-	if (cl_stereo_separation->value) {
-		offset_one_scanline = (r_camera_separation > 0) ^ (cl_stereo_separation->value > 0);
-	} else {
-		// Just alternate the scanline offset every frame.
-		offset_one_scanline = r_framecount & 1;
-	}
 
 	if (cl_stereo->value) {
 		if (offset_one_scanline) vid.buffer += vid.rowbytes;
@@ -1061,6 +1053,7 @@ void R_RenderFrame (refdef_t *fd)
 
 	if (r_dowarp)
 		D_WarpScreen ();
+
 
 	if (r_dspeeds->value)
 		da_time1 = Sys_Milliseconds ();
@@ -1180,6 +1173,15 @@ void R_BeginFrame( float camera_separation )
 	}
 
 	r_camera_separation = camera_separation;
+	if (cl_stereo->value) {
+		if (cl_stereo_separation->value) {
+			offset_one_scanline = (r_camera_separation > 0) ^ (cl_stereo_separation->value > 0);
+		} else {
+			offset_one_scanline = r_framecount & 1;
+		}
+	} else {
+		offset_one_scanline = 0;
+	}
 }
 
 /*
