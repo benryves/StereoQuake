@@ -140,6 +140,9 @@ cvar_t	*vid_gamma;
 cvar_t	*sw_lockpvs;
 //PGM
 
+cvar_t *cl_stereo;
+
+
 #define	STRINGER(x) "x"
 
 
@@ -269,6 +272,8 @@ void R_Register (void)
 	r_lightlevel = ri.Cvar_Get ("r_lightlevel", "0", 0);
 	r_lerpmodels = ri.Cvar_Get( "r_lerpmodels", "1", 0 );
 	r_novis = ri.Cvar_Get( "r_novis", "0", 0 );
+
+	cl_stereo = ri.Cvar_Get("cl_stereo", "0", 0);
 
 	vid_fullscreen = ri.Cvar_Get( "vid_fullscreen", "0", CVAR_ARCHIVE );
 	vid_gamma = ri.Cvar_Get( "vid_gamma", "1.0", CVAR_ARCHIVE );
@@ -990,6 +995,15 @@ R_RenderFrame
 */
 void R_RenderFrame (refdef_t *fd)
 {
+
+	if (cl_stereo->value) {
+		fd->height /= 2;
+		if ((r_framecount & 1) != 0) { // FIXME
+			vid.buffer += vid.rowbytes;
+		}
+		vid.rowbytes *= 2;
+	}
+
 	r_newrefdef = *fd;
 
 	if (!r_worldmodel && !( r_newrefdef.rdflags & RDF_NOWORLDMODEL ) )
@@ -1051,6 +1065,14 @@ void R_RenderFrame (refdef_t *fd)
 
 	if (r_dspeeds->value)
 		R_PrintDSpeeds ();
+
+	if (cl_stereo->value) {
+		fd->height *= 2;
+		vid.rowbytes /= 2;
+		if ((r_framecount & 1) == 0) { // FIXME
+			vid.buffer -= vid.rowbytes;
+		}
+	}
 
 	if (sw_reportsurfout->value && r_outofsurfaces)
 		ri.Con_Printf (PRINT_ALL,"Short %d surfaces\n", r_outofsurfaces);
