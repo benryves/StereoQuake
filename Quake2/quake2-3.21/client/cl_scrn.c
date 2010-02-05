@@ -1289,10 +1289,11 @@ void SCR_UpdateScreen (void)
 	** range check cl_camera_separation so we don't inadvertently fry someone's
 	** brain
 	*/
-	if ( cl_stereo_separation->value > 1.0 )
+	
+	/*if ( cl_stereo_separation->value > 1.0 )
 		Cvar_SetValue( "cl_stereo_separation", 1.0 );
 	else if ( cl_stereo_separation->value < 0 )
-		Cvar_SetValue( "cl_stereo_separation", 0.0 );
+		Cvar_SetValue( "cl_stereo_separation", 0.0 );*/
 
 	if ( cl_stereo->value )
 	{
