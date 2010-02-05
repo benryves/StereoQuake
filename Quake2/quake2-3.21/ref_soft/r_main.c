@@ -999,7 +999,6 @@ void R_RenderFrame (refdef_t *fd)
 	r_newrefdef = *fd;
 
 	if (cl_stereo->value) {
-		r_newrefdef.height /= 2;
 		if ((r_framecount & 1) != 0) { // FIXME
 			vid.buffer += vid.rowbytes;
 		}
@@ -1067,7 +1066,6 @@ void R_RenderFrame (refdef_t *fd)
 		R_PrintDSpeeds ();
 
 	if (cl_stereo->value) {
-		r_newrefdef.height *= 2;
 		vid.rowbytes /= 2;
 		if ((r_framecount & 1) == 0) { // FIXME
 			vid.buffer -= vid.rowbytes;

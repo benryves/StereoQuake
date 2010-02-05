@@ -335,6 +335,11 @@ void R_ViewChanged (vrect_t *vr)
 
 	r_refdef.vrect = *vr;
 
+	if (cl_stereo->value) {
+		r_refdef.vrect.height /= 2;
+		r_refdef.vrect.y /= 2;
+	}
+
 	r_refdef.horizontalFieldOfView = 2*tan((float)r_newrefdef.fov_x/360*M_PI);;
 	verticalFieldOfView = 2*tan((float)r_newrefdef.fov_y/360*M_PI);
 
@@ -381,11 +386,20 @@ void R_ViewChanged (vrect_t *vr)
 	aliasxscale = xscale * r_aliasuvscale;
 	xscaleinv = 1.0 / xscale;
 
-	yscale = r_refdef.vrect.height / verticalFieldOfView;
+	if (cl_stereo->value) {
+		yscale = xscale * 0.5f;		
+	} else {
+		yscale = xscale;
+	}
 	aliasyscale = yscale * r_aliasuvscale;
 	yscaleinv = 1.0 / yscale;
+	
 	xscaleshrink = (r_refdef.vrect.width-6)/r_refdef.horizontalFieldOfView;
-	yscaleshrink = (r_refdef.vrect.height-6)/verticalFieldOfView;
+	if (cl_stereo->value) {
+		yscaleshrink = xscaleshrink * 0.5f;
+	} else {
+		yscaleshrink = xscaleshrink;
+	}
 
 // left side clip
 	screenedge[0].normal[0] = -1.0 / (xOrigin*r_refdef.horizontalFieldOfView);
