@@ -30,6 +30,7 @@ int				r_turb_spancount;
 
 void D_DrawTurbulent8Span (void);
 
+extern cvar_t *cl_stereo;
 
 /*
 =============
@@ -57,6 +58,9 @@ void D_WarpScreen (void)
 	//
 	w = r_newrefdef.width;
 	h = r_newrefdef.height;
+
+	if (cl_stereo->value) h /= 2;
+
 	if (w != cached_width || h != cached_height)
 	{
 		cached_width = w;
