@@ -382,8 +382,8 @@ void R_ViewChanged (vrect_t *vr)
 	aliasxcenter = xcenter * r_aliasuvscale;
 	ycenter = ((float)r_refdef.vrect.height * YCENTERING) +
 			r_refdef.vrect.y - 0.5;
-	if (offset_one_scanline) ycenter -= 0.5f;
 	aliasycenter = ycenter * r_aliasuvscale;
+	if (offset_one_scanline) ycenter -= 0.5f;
 
 	xscale = r_refdef.vrect.width / r_refdef.horizontalFieldOfView;
 	aliasxscale = xscale * r_aliasuvscale;
