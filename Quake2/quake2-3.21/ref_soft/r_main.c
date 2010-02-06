@@ -149,6 +149,7 @@ cvar_t	*sw_lockpvs;
 cvar_t *cl_stereo;
 cvar_t *cl_stereo_separation;
 
+extern int r_half_height_particles;
 
 #define	STRINGER(x) "x"
 
@@ -1009,6 +1010,9 @@ void R_RenderFrame (refdef_t *fd)
 	if (cl_stereo->value) {
 		if (offset_one_scanline) vid.buffer += vid.rowbytes;
 		vid.rowbytes *= 2;
+		r_half_height_particles = 1;
+	} else {
+		r_half_height_particles = 0;
 	}
 
 	if (!r_worldmodel && !( r_newrefdef.rdflags & RDF_NOWORLDMODEL ) )

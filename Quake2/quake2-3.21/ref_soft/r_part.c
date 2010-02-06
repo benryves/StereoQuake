@@ -34,6 +34,8 @@ typedef struct
 
 static partparms_t partparms;
 
+int r_half_height_particles;
+
 #if id386 && !defined __linux__
 
 static unsigned s_prefetch_address;
@@ -351,6 +353,20 @@ skip_pix_clamp:
 	** EDI = framebuffer
 	*/
 	__asm mov ecx, edx
+
+	/*
+	** If we're rendering in a stereo mode, each scanline we draw here covers two on the display.
+	** We therefore need to halve the height of each particle before drawing it to compensate.
+	*/
+
+	__asm cmp r_half_height_particles, 0
+	__asm je tweaked_particle_height
+
+	__asm shr edx, 1
+	__asm jne tweaked_particle_height
+	__asm inc edx
+tweaked_particle_height:
+
 
 	__asm cmp ecx, 1
 	__asm ja  over
