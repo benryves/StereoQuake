@@ -332,7 +332,7 @@ static void SCR_CalcVrect (void)
 	scr_vrect.height &= ~1;
 
 	scr_vrect.x = (viddef.width - scr_vrect.width)/2;
-	scr_vrect.y = (viddef.height - scr_vrect.height)/2;
+	scr_vrect.y = ((viddef.height - scr_vrect.height)/2) & ~1;
 }
 
 
