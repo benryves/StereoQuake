@@ -879,6 +879,8 @@ PDWORD RawValuePointer (int axis)
 		return &ji.dwUpos;
 	case JOY_AXIS_V:
 		return &ji.dwVpos;
+	default:
+		return NULL; /* Should not get here */
 	}
 }
 
