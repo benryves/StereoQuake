@@ -926,15 +926,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\d_draw.asm"
+				RelativePath=".\d_draw.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -942,8 +942,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -951,8 +951,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -960,21 +960,21 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\d_draw16.asm"
+				RelativePath=".\d_draw16.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -982,8 +982,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -991,8 +991,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1000,8 +1000,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
@@ -1221,15 +1221,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\d_parta.asm"
+				RelativePath=".\d_parta.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1237,8 +1237,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1246,8 +1246,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1255,21 +1255,21 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\d_polysa.asm"
+				RelativePath=".\d_polysa.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1277,8 +1277,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1286,8 +1286,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1295,8 +1295,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
@@ -1387,15 +1387,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\d_scana.asm"
+				RelativePath=".\d_scana.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1403,8 +1403,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1412,8 +1412,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1421,8 +1421,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
@@ -1470,15 +1470,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\d_spr8.asm"
+				RelativePath=".\d_spr8.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1486,8 +1486,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1495,8 +1495,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1504,8 +1504,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
@@ -1639,15 +1639,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\d_varsa.asm"
+				RelativePath=".\d_varsa.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1655,8 +1655,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1664,8 +1664,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1673,8 +1673,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
@@ -2445,15 +2445,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\math.asm"
+				RelativePath=".\math.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -2461,8 +2461,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -2470,8 +2470,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -2479,8 +2479,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
@@ -3063,15 +3063,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\r_aclipa.asm"
+				RelativePath=".\r_aclipa.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3079,8 +3079,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3088,8 +3088,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3097,8 +3097,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
@@ -3146,15 +3146,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\r_aliasa.asm"
+				RelativePath=".\r_aliasa.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3162,8 +3162,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3171,8 +3171,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3180,8 +3180,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
@@ -3272,15 +3272,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\r_drawa.asm"
+				RelativePath=".\r_drawa.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3288,8 +3288,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3297,8 +3297,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3306,8 +3306,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
@@ -3355,15 +3355,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\r_edgea.asm"
+				RelativePath=".\r_edgea.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3371,8 +3371,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3380,8 +3380,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3389,8 +3389,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
@@ -3780,15 +3780,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\r_varsa.asm"
+				RelativePath=".\r_varsa.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3796,8 +3796,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3805,8 +3805,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -3814,8 +3814,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
@@ -4027,15 +4027,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\snd_mixa.asm"
+				RelativePath=".\snd_mixa.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4043,8 +4043,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4052,8 +4052,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4061,8 +4061,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
@@ -4108,15 +4108,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\surf16.asm"
+				RelativePath=".\surf16.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4124,8 +4124,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4133,8 +4133,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4142,21 +4142,21 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\surf8.asm"
+				RelativePath=".\surf8.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4164,8 +4164,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4173,8 +4173,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4182,8 +4182,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
@@ -4393,15 +4393,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\sys_wina.asm"
+				RelativePath=".\sys_wina.s"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4409,8 +4409,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4418,8 +4418,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4427,8 +4427,8 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="ml /c /Cp /coff /Fo$(OutDir)\$(InputName).obj /Zm /Zi $(InputFileName)&#x0D;&#x0A;"
-						Outputs="$(OutDir)\$(InputName).obj"
+						CommandLine="cl /EP &gt; $(OUTDIR)\$(InputName).spp $(InputPath)&#x0D;&#x0A;gas2masm\$(ConfigurationName)\gas2masm &lt; $(OUTDIR)\$(InputName).spp &gt; $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;ml /c /Cp /coff /Fo$(OUTDIR)\$(InputName).obj /Zm /Zi $(OUTDIR)\$(InputName).asm&#x0D;&#x0A;del $(OUTDIR)\$(InputName).spp"
+						Outputs="$(OUTDIR)\$(InputName).obj"
 					/>
 				</FileConfiguration>
 			</File>
