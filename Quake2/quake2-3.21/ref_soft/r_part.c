@@ -551,7 +551,11 @@ void R_DrawParticle( void )
 	/*
 	** render the appropriate pixels
 	*/
-	count = pix;
+	if (r_half_height_particles && pix > 1) {
+		count = pix / 2;
+	} else {
+		count = pix;
+	}
 
     switch (level) {
     case PARTICLE_33 :
