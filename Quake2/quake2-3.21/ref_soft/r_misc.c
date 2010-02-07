@@ -468,7 +468,7 @@ void R_SetupFrame (void)
 		r_viewcluster = r_viewleaf->cluster;
 	}
 
-	if (sw_waterwarp->value && (r_newrefdef.rdflags & RDF_UNDERWATER) && !cl_stereo->value) // HACK: Stereo renderer crashes when warping
+	if (sw_waterwarp->value && (r_newrefdef.rdflags & RDF_UNDERWATER))
 		r_dowarp = true;
 	else
 		r_dowarp = false;
