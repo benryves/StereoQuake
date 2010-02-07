@@ -9,6 +9,7 @@ copy ..\Quake\Release\*.exe Quake
 copy ..\Quake2\quake2-3.21\release\*.exe Quake2
 copy ..\Quake2\quake2-3.21\release\*.dll Quake2
 copy ..\Quake\gnu.txt
+copy ..\readme.htm
 7z a -r -mx=9 ..\stereo-quake.zip .
 chdir ..
 rmdir package-temp /s /q
