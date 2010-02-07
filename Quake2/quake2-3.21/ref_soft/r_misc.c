@@ -42,8 +42,6 @@ int	d_pix_min, d_pix_max, d_pix_shift;
 int		d_scantable[MAXHEIGHT];
 short	*zspantable[MAXHEIGHT]; 
 
-extern int offset_one_scanline;
-
 /*
 ================
 D_Patch
@@ -383,7 +381,6 @@ void R_ViewChanged (vrect_t *vr)
 	ycenter = ((float)r_refdef.vrect.height * YCENTERING) +
 			r_refdef.vrect.y - 0.5;
 	aliasycenter = ycenter * r_aliasuvscale;
-	if (offset_one_scanline) ycenter -= 0.5f;
 
 	xscale = r_refdef.vrect.width / r_refdef.horizontalFieldOfView;
 	aliasxscale = xscale * r_aliasuvscale;
