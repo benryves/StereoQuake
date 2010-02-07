@@ -469,3 +469,14 @@ void Sys_SetFPCW( void )
 }
 #endif
 
+int VID_GetScanline0Offset(void) {
+	if (!vid_fullscreen->value && sww_state.hWnd) {
+		// Windowed, return the top of the window's client rectangle.
+		POINT p = { 0, 0 };
+		ClientToScreen(sww_state.hWnd, &p);
+		return p.y;
+	} else {
+		// Full-screen, scanline 0 is implicitly at scanline 0.
+		return 0;
+	}
+}

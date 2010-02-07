@@ -151,6 +151,8 @@ cvar_t *cl_stereo_separation;
 
 extern int r_half_height_particles;
 
+extern int VID_GetScanline0Offset(void);
+
 #define	STRINGER(x) "x"
 
 
@@ -1179,7 +1181,7 @@ void R_BeginFrame( float camera_separation )
 	r_camera_separation = camera_separation;
 	if (cl_stereo->value) {
 		if (cl_stereo_separation->value) {
-			offset_one_scanline = (r_camera_separation > 0) ^ (cl_stereo_separation->value > 0);
+			offset_one_scanline = (r_camera_separation < 0) ^ (cl_stereo_separation->value > 0) ^ (VID_GetScanline0Offset() & 1);
 		} else {
 			offset_one_scanline = r_framecount & 1;
 		}

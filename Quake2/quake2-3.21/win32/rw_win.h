@@ -65,4 +65,6 @@ qboolean DDRAW_Init( unsigned char **ppbuffer, int *ppitch );
 void     DDRAW_Shutdown( void );
 void     DDRAW_SetPalette( const unsigned char *palette );
 
+int VID_GetScanline0Offset(void);
+
 #endif
