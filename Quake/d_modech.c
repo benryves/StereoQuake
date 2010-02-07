@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 int	d_vrectx, d_vrecty, d_vrectright_particle, d_vrectbottom_particle;
 
-int	d_y_aspect_shift, d_pix_min, d_pix_max, d_pix_shift;
+int	d_y_aspect_shift, d_pix_min, d_pix_max, d_pix_shift, d_pix_half_height;
 
 int		d_scantable[MAXHEIGHT];
 short	*zspantable[MAXHEIGHT]; 
@@ -85,6 +85,8 @@ void D_ViewChanged (void)
 		d_y_aspect_shift = 1;
 	else
 		d_y_aspect_shift = 0;
+
+	d_pix_half_height = pixelAspect < 0.75;
 
 	d_vrectx = r_refdef.vrect.x;
 	d_vrecty = r_refdef.vrect.y;

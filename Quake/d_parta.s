@@ -216,6 +216,10 @@ LTestDone:
 	movl	C(d_y_aspect_shift),%ebx
 	testl	%ebx,%ebx
 	jnz		LDefault
+	
+	movl	C(d_pix_half_height),%ebx
+	testl	%ebx,%ebx
+	jnz		LDefault
 
 	cmpl	$4,%eax
 	ja		LDefault
@@ -427,6 +431,13 @@ LDefault:
 	movl	%eax,DP_Pix
 	movb	C(d_y_aspect_shift),%cl
 	shll	%cl,%ebx
+	
+	movb	C(d_pix_half_height),%cl	
+	shrl	%cl,%ebx
+	jne		LTweakedParticleHeight
+	incl	%ebx
+LTweakedParticleHeight:
+	
 
 // for ( ; count ; count--, pz += d_zwidth, pdest += screenwidth)
 // {
