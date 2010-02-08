@@ -36,7 +36,9 @@ static partparms_t partparms;
 
 int r_half_height_particles;
 
-#if id386 && !defined __linux__
+#define C_ONLY_PARTICLES 1
+
+#if id386 && !defined __linux__ && !defined C_ONLY_PARTICLES
 
 static unsigned s_prefetch_address;
 
@@ -623,7 +625,7 @@ void R_DrawParticles (void)
 	VectorScale( vup, yscaleshrink, r_pup );
 	VectorCopy( vpn, r_ppn );
 
-#if id386 && !defined __linux__
+#if id386 && !defined __linux__ && !defined C_ONLY_PARTICLES
 	__asm fldcw word ptr [fpu_sp24_cw]
 #endif
 
@@ -640,7 +642,7 @@ void R_DrawParticles (void)
 		partparms.particle = p;
 		partparms.color    = p->color;
 
-#if id386 && !defined __linux__
+#if id386 && !defined __linux__ && !defined C_ONLY_PARTICLES
 		if ( i < r_newrefdef.num_particles-1 )
 			s_prefetch_address = ( unsigned int ) ( p + 1 );
 		else
@@ -650,7 +652,7 @@ void R_DrawParticles (void)
 		R_DrawParticle();
 	}
 
-#if id386 && !defined __linux__
+#if id386 && !defined __linux__ && !defined C_ONLY_PARTICLES
 	__asm fldcw word ptr [fpu_chop_cw]
 #endif
 
