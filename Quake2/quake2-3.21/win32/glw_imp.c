@@ -422,11 +422,11 @@ qboolean GLimp_InitGL (void)
 	{
 		ri.Con_Printf( PRINT_ALL, "...attempting to use stereo\n" );
 		pfd.dwFlags |= PFD_STEREO;
-		gl_state.stereo_enabled = true;
+		gl_state.stereo_mode = STEREO_MODE_OPENGL;
 	}
 	else
 	{
-		gl_state.stereo_enabled = false;
+		gl_state.stereo_mode = STEREO_MODE_NONE;
 	}
 
 	/*
@@ -498,8 +498,7 @@ qboolean GLimp_InitGL (void)
 	if ( !( pfd.dwFlags & PFD_STEREO ) && ( stereo->value != 0 ) ) 
 	{
 		ri.Con_Printf( PRINT_ALL, "...failed to select stereo pixel format\n" );
-		ri.Cvar_SetValue( "cl_stereo", 0 );
-		gl_state.stereo_enabled = false;
+		gl_state.stereo_mode = STEREO_MODE_ANAGLYPH;
 	}
 
 	/*
@@ -563,18 +562,20 @@ void GLimp_BeginFrame( float camera_separation )
 		gl_bitdepth->modified = false;
 	}
 
-	if ( camera_separation < 0 && gl_state.stereo_enabled )
-	{
-		qglDrawBuffer( GL_BACK_LEFT );
-	}
-	else if ( camera_separation > 0 && gl_state.stereo_enabled )
-	{
-		qglDrawBuffer( GL_BACK_RIGHT );
-	}
-	else
-	{
+
+	if (gl_state.stereo_mode == STEREO_MODE_OPENGL) {
+		if ( camera_separation < 0 )
+		{
+			qglDrawBuffer( GL_BACK_LEFT );
+		}
+		else if ( camera_separation > 0  )
+		{
+			qglDrawBuffer( GL_BACK_RIGHT );
+		}
+	} else {
 		qglDrawBuffer( GL_BACK );
 	}
+
 }
 
 /*

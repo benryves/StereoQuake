@@ -392,6 +392,12 @@ void GL_DrawParticles( int n, const particle_t particles[], const unsigned color
 #define GL_RENDERER_MCD			0x01000000
 #define GL_RENDERER_OTHER		0x80000000
 
+enum stereo_modes {
+	STEREO_MODE_NONE,
+	STEREO_MODE_OPENGL,
+	STEREO_MODE_ANAGLYPH,
+};
+
 typedef struct
 {
 	int         renderer;
@@ -418,7 +424,7 @@ typedef struct
 	int currenttmu;
 
 	float camera_separation;
-	qboolean stereo_enabled;
+	enum stereo_modes stereo_mode;
 
 	unsigned char originalRedGammaTable[256];
 	unsigned char originalGreenGammaTable[256];

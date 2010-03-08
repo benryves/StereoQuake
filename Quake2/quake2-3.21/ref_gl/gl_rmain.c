@@ -135,6 +135,8 @@ cvar_t	*vid_fullscreen;
 cvar_t	*vid_gamma;
 cvar_t	*vid_ref;
 
+cvar_t	*cl_stereo_separation;
+
 /*
 =================
 R_CullBox
@@ -684,8 +686,10 @@ void MYgluPerspective( GLdouble fovy, GLdouble aspect,
    xmin = ymin * aspect;
    xmax = ymax * aspect;
 
-   xmin += -( 2 * gl_state.camera_separation ) / zNear;
-   xmax += -( 2 * gl_state.camera_separation ) / zNear;
+   // I'm not sure why this is being done here, but it seems to cock up stereoscopic rendering.
+   // I've commented it out as the actual camera offsetting code appears to be done in cl_view.c
+   //xmin += -( 2 * gl_state.camera_separation ) / zNear;
+   //xmax += -( 2 * gl_state.camera_separation ) / zNear;
 
    qglFrustum( xmin, xmax, ymin, ymax, zNear, zFar );
 }
@@ -811,6 +815,15 @@ r_newrefdef must be set before the first call
 */
 void R_RenderView (refdef_t *fd)
 {
+
+	if (gl_state.stereo_mode == STEREO_MODE_ANAGLYPH) {
+		if ((gl_state.camera_separation  * cl_stereo_separation->value) < 0) {
+			qglColorMask(true, false, false, true);
+		} else {
+			qglColorMask(false, true, true, true);
+		}
+	}
+
 	if (r_norefresh->value)
 		return;
 
@@ -858,6 +871,10 @@ void R_RenderView (refdef_t *fd)
 			c_visible_textures, 
 			c_visible_lightmaps); 
 	}
+
+	if (gl_state.stereo_mode == STEREO_MODE_ANAGLYPH) {
+		qglColorMask(true, true, true, true);
+	}
 }
 
 
@@ -894,7 +911,7 @@ static void GL_DrawStereoPattern( void )
 	if ( !( gl_config.renderer & GL_RENDERER_INTERGRAPH ) )
 		return;
 
-	if ( !gl_state.stereo_enabled )
+	if (gl_state.stereo_mode != STEREO_MODE_OPENGL)
 		return;
 
 	R_SetGL2D();
@@ -1037,6 +1054,8 @@ void R_Register( void )
 	vid_fullscreen = ri.Cvar_Get( "vid_fullscreen", "0", CVAR_ARCHIVE );
 	vid_gamma = ri.Cvar_Get( "vid_gamma", "1.0", CVAR_ARCHIVE );
 	vid_ref = ri.Cvar_Get( "vid_ref", "soft", CVAR_ARCHIVE );
+
+	cl_stereo_separation = ri.Cvar_Get( "cl_stereo_separation", "0", 0 );
 
 	ri.Cmd_AddCommand( "imagelist", GL_ImageList_f );
 	ri.Cmd_AddCommand( "screenshot", GL_ScreenShot_f );
@@ -1502,7 +1521,7 @@ void R_BeginFrame( float camera_separation )
 	{
 		gl_drawbuffer->modified = false;
 
-		if ( gl_state.camera_separation == 0 || !gl_state.stereo_enabled )
+		if ( gl_state.camera_separation == 0 || gl_state.stereo_mode != STEREO_MODE_OPENGL)
 		{
 			if ( Q_stricmp( gl_drawbuffer->string, "GL_FRONT" ) == 0 )
 				qglDrawBuffer( GL_FRONT );
@@ -1541,6 +1560,7 @@ void R_BeginFrame( float camera_separation )
 	// clear screen if desired
 	//
 	R_Clear ();
+	
 }
 
 /*
