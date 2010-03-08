@@ -818,9 +818,9 @@ void R_RenderView (refdef_t *fd)
 
 	if (gl_state.stereo_mode == STEREO_MODE_ANAGLYPH) {
 		if ((gl_state.camera_separation  * cl_stereo_separation->value) < 0) {
-			qglColorMask(true, false, false, true);
+			qglColorMask(GL_TRUE, GL_FALSE, GL_FALSE, GL_TRUE);
 		} else {
-			qglColorMask(false, true, true, true);
+			qglColorMask(GL_FALSE, GL_TRUE, GL_TRUE, GL_TRUE);
 		}
 	}
 
