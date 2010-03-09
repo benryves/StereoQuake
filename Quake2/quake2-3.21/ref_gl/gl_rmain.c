@@ -765,12 +765,20 @@ R_Clear
 */
 void R_Clear (void)
 {
+
+	// Check whether the stencil buffer needs clearing, and do so if need be.
+	GLbitfield stencilFlags = 0;
+	if (gl_state.stereo_mode == STEREO_MODE_ROW_INTERLEAVED) {
+		qglClearStencil(0);
+		stencilFlags |= GL_STENCIL_BUFFER_BIT;
+	}
+
 	if (gl_ztrick->value)
 	{
 		static int trickframe;
 
 		if (gl_clear->value)
-			qglClear (GL_COLOR_BUFFER_BIT);
+			qglClear (GL_COLOR_BUFFER_BIT | stencilFlags);
 
 		trickframe++;
 		if (trickframe & 1)
@@ -789,9 +797,9 @@ void R_Clear (void)
 	else
 	{
 		if (gl_clear->value)
-			qglClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			qglClear (GL_COLOR_BUFFER_BIT | stencilFlags | GL_DEPTH_BUFFER_BIT);
 		else
-			qglClear (GL_DEPTH_BUFFER_BIT);
+			qglClear (GL_DEPTH_BUFFER_BIT | stencilFlags);
 		gldepthmin = 0;
 		gldepthmax = 1;
 		qglDepthFunc (GL_LEQUAL);
@@ -822,6 +830,30 @@ void R_RenderView (refdef_t *fd)
 		} else {
 			qglColorMask(GL_FALSE, GL_TRUE, GL_TRUE, GL_TRUE);
 		}
+	} else if (gl_state.stereo_mode == STEREO_MODE_ROW_INTERLEAVED) {
+
+		int y;
+
+		qglColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+		qglDepthMask(GL_FALSE);
+
+		qglEnable(GL_STENCIL_TEST);
+		qglStencilFunc(GL_ALWAYS, 1, -1);
+		qglStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
+
+		qglBegin(GL_LINES);
+		for (y = 0; y < vid.height; y += 2) {
+			qglVertex2i(0, y);
+			qglVertex2i(vid.width, y);
+		}
+		qglEnd();
+
+		qglColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+		qglDepthMask(GL_TRUE);
+
+		qglStencilFunc((gl_state.camera_separation  * cl_stereo_separation->value) < 0 ? GL_EQUAL : GL_NOTEQUAL, 1, -1);
+		qglStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+		
 	}
 
 	if (r_norefresh->value)
@@ -874,6 +906,8 @@ void R_RenderView (refdef_t *fd)
 
 	if (gl_state.stereo_mode == STEREO_MODE_ANAGLYPH) {
 		qglColorMask(true, true, true, true);
+	} else {
+		qglDisable(GL_STENCIL_TEST);
 	}
 }
 

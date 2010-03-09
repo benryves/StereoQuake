@@ -498,7 +498,14 @@ qboolean GLimp_InitGL (void)
 	if ( !( pfd.dwFlags & PFD_STEREO ) && ( stereo->value != 0 ) ) 
 	{
 		ri.Con_Printf( PRINT_ALL, "...failed to select stereo pixel format\n" );
-		gl_state.stereo_mode = STEREO_MODE_ANAGLYPH;
+		gl_state.stereo_mode = STEREO_MODE_ROW_INTERLEAVED;
+	}
+
+	/*
+	** Request a stencil buffer if using an interleaved stereoscopic mode.
+	*/
+	if (gl_state.stereo_mode == STEREO_MODE_ROW_INTERLEAVED) {
+		pfd.cStencilBits = 1;
 	}
 
 	/*
