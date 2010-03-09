@@ -910,7 +910,7 @@ void R_RenderView (refdef_t *fd)
 	}
 
 	if (gl_state.stereo_mode == STEREO_MODE_ANAGLYPH) {
-		qglColorMask(true, true, true, true);
+		qglColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	} else {
 		qglDisable(GL_STENCIL_TEST);
 	}
