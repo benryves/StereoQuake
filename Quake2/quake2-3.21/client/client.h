@@ -435,6 +435,8 @@ void CL_AddDLights (void);
 void CL_AddTEnts (void);
 void CL_AddLightStyles (void);
 
+void CL_CalcViewValues (void);
+
 //=================================================
 
 void CL_PrepRefresh (void);

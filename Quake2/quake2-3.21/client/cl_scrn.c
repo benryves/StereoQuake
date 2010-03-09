@@ -1298,8 +1298,8 @@ void SCR_UpdateScreen (void)
 	if ( cl_stereo->value )
 	{
 		numframes = 2;
-		separation[0] = -cl_stereo_separation->value / 2;
-		separation[1] =  cl_stereo_separation->value / 2;
+		separation[0] = -1; //-cl_stereo_separation->value / 2;
+		separation[1] = +1; //cl_stereo_separation->value / 2;
 	}		
 	else
 	{

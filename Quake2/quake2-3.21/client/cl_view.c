@@ -531,6 +531,13 @@ void V_RenderView( float stereo_separation )
 
 		// sort entities for better cache locality
         qsort( cl.refdef.entities, cl.refdef.num_entities, sizeof( cl.refdef.entities[0] ), (int (*)(const void *, const void *))entitycmpfnc );
+	} else if (cl.frame.valid && cl_paused->value && cl_stereo->value) {
+		
+		// We need to adjust the refdef in stereo mode when paused.
+		vec3_t tmp;
+		CL_CalcViewValues();
+		VectorScale( cl.v_right, stereo_separation, tmp );
+		VectorAdd( cl.refdef.vieworg, tmp, cl.refdef.vieworg );
 	}
 
 	re.RenderFrame (&cl.refdef);

@@ -1337,6 +1337,7 @@ void CL_AddViewWeapon (player_state_t *ps, player_state_t *ops)
 {
 	entity_t	gun;		// view model
 	int			i;
+	float       lerp;
 
 	// allow the gun to be completely removed
 	if (!cl_gun->value)
@@ -1355,13 +1356,16 @@ void CL_AddViewWeapon (player_state_t *ps, player_state_t *ops)
 	if (!gun.model)
 		return;
 
+	lerp = cl.lerpfrac;
+	if (cl_paused->value) lerp = 1.0f;
+
 	// set up gun position
 	for (i=0 ; i<3 ; i++)
 	{
 		gun.origin[i] = cl.refdef.vieworg[i] + ops->gunoffset[i]
-			+ cl.lerpfrac * (ps->gunoffset[i] - ops->gunoffset[i]);
+			+ lerp * (ps->gunoffset[i] - ops->gunoffset[i]);
 		gun.angles[i] = cl.refdef.viewangles[i] + LerpAngle (ops->gunangles[i],
-			ps->gunangles[i], cl.lerpfrac);
+			ps->gunangles[i], lerp);
 	}
 
 	if (gun_frame)
@@ -1379,7 +1383,7 @@ void CL_AddViewWeapon (player_state_t *ps, player_state_t *ops)
 	}
 
 	gun.flags = RF_MINLIGHT | RF_DEPTHHACK | RF_WEAPONMODEL;
-	gun.backlerp = 1.0 - cl.lerpfrac;
+	gun.backlerp = 1.0 - lerp;
 	VectorCopy (gun.origin, gun.oldorigin);	// don't lerp at all
 	V_AddEntity (&gun);
 }
@@ -1405,17 +1409,20 @@ void CL_CalcViewValues (void)
 	i = (cl.frame.serverframe - 1) & UPDATE_MASK;
 	oldframe = &cl.frames[i];
 	if (oldframe->serverframe != cl.frame.serverframe-1 || !oldframe->valid)
-		oldframe = &cl.frame;		// previous frame was dropped or involid
+		oldframe = &cl.frame;		// previous frame was dropped or invalid, or the game was paused.
 	ops = &oldframe->playerstate;
 
 	// see if the player entity was teleported this frame
-	if ( fabs(ops->pmove.origin[0] - ps->pmove.origin[0]) > 256*8
+	if (cl_paused->value
+		|| fabs(ops->pmove.origin[0] - ps->pmove.origin[0]) > 256*8
 		|| abs(ops->pmove.origin[1] - ps->pmove.origin[1]) > 256*8
 		|| abs(ops->pmove.origin[2] - ps->pmove.origin[2]) > 256*8)
 		ops = ps;		// don't interpolate
 
 	ent = &cl_entities[cl.playernum+1];
 	lerp = cl.lerpfrac;
+
+	if (cl_paused->value) lerp = 1.0f;
 
 	// calculate the origin
 	if ((cl_predict->value) && !(cl.frame.playerstate.pmove.pm_flags & PMF_NO_PREDICTION))
