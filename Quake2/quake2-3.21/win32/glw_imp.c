@@ -424,7 +424,7 @@ qboolean GLimp_InitGL (void)
 		pfd.dwFlags |= PFD_STEREO;
 		gl_state.stereo_mode = STEREO_MODE_OPENGL;
 	}
-	else if ( stereo->value > 0 && stereo->value <= STEREO_MODE_ROW_INTERLEAVED)
+	else if ( stereo->value > 0 && stereo->value <= STEREO_MODE_PIXEL_INTERLEAVED)
 	{
 		gl_state.stereo_mode = stereo->value;
 	}
@@ -509,7 +509,7 @@ qboolean GLimp_InitGL (void)
 	/*
 	** Request a stencil buffer if using an interleaved stereoscopic mode.
 	*/
-	if (gl_state.stereo_mode == STEREO_MODE_ROW_INTERLEAVED) {
+	if (gl_state.stereo_mode >= STEREO_MODE_ROW_INTERLEAVED && gl_state.stereo_mode <= STEREO_MODE_PIXEL_INTERLEAVED) {
 		pfd.cStencilBits = 1;
 	}
 

@@ -769,7 +769,8 @@ void R_Clear (void)
 
 	// Check whether the stencil buffer needs clearing, and do so if need be.
 	GLbitfield stencilFlags = 0;
-	if (gl_state.stereo_mode == STEREO_MODE_ROW_INTERLEAVED) {
+	if (gl_state.stereo_mode >= STEREO_MODE_ROW_INTERLEAVED && gl_state.stereo_mode <= STEREO_MODE_PIXEL_INTERLEAVED) {
+		//qglStencilMask(GL_TRUE);
 		qglClearStencil(0);
 		stencilFlags |= GL_STENCIL_BUFFER_BIT;
 	}
@@ -808,6 +809,11 @@ void R_Clear (void)
 
 	qglDepthRange (gldepthmin, gldepthmax);
 
+
+	if (gl_state.stereo_mode >= STEREO_MODE_ROW_INTERLEAVED && gl_state.stereo_mode <= STEREO_MODE_PIXEL_INTERLEAVED) {
+		//qglStencilMask(GL_FALSE);
+	}
+
 }
 
 void R_Flash( void )
@@ -829,90 +835,127 @@ void R_RenderView (refdef_t *fd)
 
 		qboolean drawing_left_eye = (gl_state.camera_separation  * cl_stereo_separation->value) < 0;
 
-		if (gl_state.stereo_mode == STEREO_MODE_ANAGLYPH) {
-			
-			if (drawing_left_eye) {
-				qglColorMask(GL_TRUE, GL_FALSE, GL_FALSE, GL_TRUE);
-			} else {
-				qglColorMask(GL_FALSE, GL_TRUE, GL_TRUE, GL_TRUE);
-			}
+		switch (gl_state.stereo_mode) {
+			case STEREO_MODE_ANAGLYPH:
+				if (drawing_left_eye) {
+					qglColorMask(GL_TRUE, GL_FALSE, GL_FALSE, GL_TRUE);
+				} else {
+					qglColorMask(GL_FALSE, GL_TRUE, GL_TRUE, GL_TRUE);
+				}
+				break;
+			case STEREO_MODE_ROW_INTERLEAVED:
+			case STEREO_MODE_COLUMN_INTERLEAVED:
+			case STEREO_MODE_PIXEL_INTERLEAVED:
 
-		} else if (gl_state.stereo_mode == STEREO_MODE_ROW_INTERLEAVED) {
+				R_SetGL2D();
 
-			int y;
+				qglEnable(GL_STENCIL_TEST);
+				qglStencilMask(GL_TRUE);
+				qglColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 
-			R_SetGL2D();
+				qglStencilOp(GL_REPLACE, GL_KEEP, GL_KEEP);
+				qglStencilFunc(GL_NEVER, 0, 1);
 
-			qglEnable(GL_STENCIL_TEST);
-			qglStencilOp(GL_REPLACE, GL_KEEP, GL_KEEP);
+				qglBegin(GL_QUADS);
+				{
+					qglVertex2i(0, 0);
+					qglVertex2i(vid.width, 0);
+					qglVertex2i(vid.width, vid.height);
+					qglVertex2i(0, vid.height);
+				}
+				qglEnd();
 
-			qglStencilMask(GL_TRUE);
-			qglStencilFunc(GL_NEVER, 1, 1);
+				qglStencilOp(GL_INVERT, GL_KEEP, GL_KEEP);
+				qglStencilFunc(GL_NEVER, 1, 1);
 
-			qglBegin(GL_LINES);
-			for (y = 0; y < vid.height; y += 2) {
-				qglVertex2i(0, y);
-				qglVertex2i(vid.width, y);
-			}
-			qglEnd();
+				qglBegin(GL_LINES);
+				{
+					if (gl_state.stereo_mode == STEREO_MODE_ROW_INTERLEAVED || gl_state.stereo_mode == STEREO_MODE_PIXEL_INTERLEAVED) {
+						int y;
+						for (y = 0; y < vid.height; y += 2) {
+							qglVertex2i(0, y);
+							qglVertex2i(vid.width, y);
+						}
+					}
 
-			qglStencilMask(GL_FALSE);
-			qglStencilFunc(GL_EQUAL, drawing_left_eye, 1);
+					if (gl_state.stereo_mode == STEREO_MODE_COLUMN_INTERLEAVED || gl_state.stereo_mode == STEREO_MODE_PIXEL_INTERLEAVED) {
+						int x;
+						for (x = 0; x < vid.width; x += 2) {
+							qglVertex2i(x, 0);
+							qglVertex2i(x, vid.height);
+						}
+					}
+				}
+				qglEnd();
+
+				qglStencilMask(GL_FALSE);
+				qglColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+
+				qglStencilFunc(GL_EQUAL, drawing_left_eye ? 1 : 0, 1);
+				qglStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+
+				break;
 		}
 	}
 
-	if (r_norefresh->value)
-		return;
+	if (!r_norefresh->value) {
 
-	r_newrefdef = *fd;
+		r_newrefdef = *fd;
 
-	if (!r_worldmodel && !( r_newrefdef.rdflags & RDF_NOWORLDMODEL ) )
-		ri.Sys_Error (ERR_DROP, "R_RenderView: NULL worldmodel");
+		if (!r_worldmodel && !( r_newrefdef.rdflags & RDF_NOWORLDMODEL ) )
+			ri.Sys_Error (ERR_DROP, "R_RenderView: NULL worldmodel");
 
-	if (r_speeds->value)
-	{
-		c_brush_polys = 0;
-		c_alias_polys = 0;
+		if (r_speeds->value)
+		{
+			c_brush_polys = 0;
+			c_alias_polys = 0;
+		}
+
+		R_PushDlights ();
+
+		if (gl_finish->value)
+			qglFinish ();
+
+		R_SetupFrame ();
+
+		R_SetFrustum ();
+
+		R_SetupGL ();
+
+		R_MarkLeaves ();	// done here so we know if we're in water
+
+		R_DrawWorld ();
+
+		R_DrawEntitiesOnList ();
+
+		R_RenderDlights ();
+
+		R_DrawParticles ();
+
+		R_DrawAlphaSurfaces ();
+
+		R_Flash();
+
+		if (r_speeds->value)
+		{
+			ri.Con_Printf (PRINT_ALL, "%4i wpoly %4i epoly %i tex %i lmaps\n",
+				c_brush_polys, 
+				c_alias_polys, 
+				c_visible_textures, 
+				c_visible_lightmaps); 
+		}
+
 	}
 
-	R_PushDlights ();
-
-	if (gl_finish->value)
-		qglFinish ();
-
-	R_SetupFrame ();
-
-	R_SetFrustum ();
-
-	R_SetupGL ();
-
-	R_MarkLeaves ();	// done here so we know if we're in water
-
-	R_DrawWorld ();
-
-	R_DrawEntitiesOnList ();
-
-	R_RenderDlights ();
-
-	R_DrawParticles ();
-
-	R_DrawAlphaSurfaces ();
-
-	R_Flash();
-
-	if (r_speeds->value)
-	{
-		ri.Con_Printf (PRINT_ALL, "%4i wpoly %4i epoly %i tex %i lmaps\n",
-			c_brush_polys, 
-			c_alias_polys, 
-			c_visible_textures, 
-			c_visible_lightmaps); 
-	}
-
-	if (gl_state.stereo_mode == STEREO_MODE_ANAGLYPH) {
-		qglColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-	} else {
-		qglDisable(GL_STENCIL_TEST);
+	switch (gl_state.stereo_mode) {
+		case STEREO_MODE_ANAGLYPH:
+			qglColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+			break;
+		case STEREO_MODE_ROW_INTERLEAVED:
+		case STEREO_MODE_COLUMN_INTERLEAVED:
+		case STEREO_MODE_PIXEL_INTERLEAVED:
+			qglDisable(GL_STENCIL_TEST);
+			break;
 	}
 }
 
