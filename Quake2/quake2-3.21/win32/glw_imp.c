@@ -418,11 +418,15 @@ qboolean GLimp_InitGL (void)
 	/*
 	** set PFD_STEREO if necessary
 	*/
-	if ( stereo->value != 0 )
+	if ( stereo->value == STEREO_MODE_OPENGL )
 	{
 		ri.Con_Printf( PRINT_ALL, "...attempting to use stereo\n" );
 		pfd.dwFlags |= PFD_STEREO;
 		gl_state.stereo_mode = STEREO_MODE_OPENGL;
+	}
+	else if ( stereo->value > 0 && stereo->value <= STEREO_MODE_ROW_INTERLEAVED)
+	{
+		gl_state.stereo_mode = stereo->value;
 	}
 	else
 	{
@@ -495,10 +499,11 @@ qboolean GLimp_InitGL (void)
 	/*
 	** report if stereo is desired but unavailable
 	*/
-	if ( !( pfd.dwFlags & PFD_STEREO ) && ( stereo->value != 0 ) ) 
+	if ( !( pfd.dwFlags & PFD_STEREO ) && ( stereo->value == STEREO_MODE_OPENGL ) ) 
 	{
 		ri.Con_Printf( PRINT_ALL, "...failed to select stereo pixel format\n" );
-		gl_state.stereo_mode = STEREO_MODE_ROW_INTERLEAVED;
+		ri.Cvar_SetValue( "cl_stereo", 0 );
+		gl_state.stereo_mode = STEREO_MODE_NONE;
 	}
 
 	/*
