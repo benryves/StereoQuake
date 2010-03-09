@@ -824,36 +824,43 @@ r_newrefdef must be set before the first call
 void R_RenderView (refdef_t *fd)
 {
 
-	if (gl_state.stereo_mode == STEREO_MODE_ANAGLYPH) {
-		if ((gl_state.camera_separation  * cl_stereo_separation->value) < 0) {
-			qglColorMask(GL_TRUE, GL_FALSE, GL_FALSE, GL_TRUE);
-		} else {
-			qglColorMask(GL_FALSE, GL_TRUE, GL_TRUE, GL_TRUE);
+	if ((gl_state.stereo_mode != STEREO_MODE_NONE) && gl_state.camera_separation) {
+
+		qboolean drawing_left_eye = (gl_state.camera_separation  * cl_stereo_separation->value) < 0;
+
+		if (gl_state.stereo_mode == STEREO_MODE_ANAGLYPH) {
+			
+			if (drawing_left_eye) {
+				qglColorMask(GL_TRUE, GL_FALSE, GL_FALSE, GL_TRUE);
+			} else {
+				qglColorMask(GL_FALSE, GL_TRUE, GL_TRUE, GL_TRUE);
+			}
+
+		} else if (gl_state.stereo_mode == STEREO_MODE_ROW_INTERLEAVED) {
+
+			int y;
+
+			qglColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+			qglDepthMask(GL_FALSE);
+
+			qglEnable(GL_STENCIL_TEST);
+			qglStencilFunc(GL_ALWAYS, 1, -1);
+			qglStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
+
+			qglBegin(GL_LINES);
+			for (y = 0; y < vid.height; y += 2) {
+				qglVertex2i(0, y);
+				qglVertex2i(vid.width, y);
+			}
+			qglEnd();
+
+			qglColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+			qglDepthMask(GL_TRUE);
+
+			qglStencilFunc(drawing_left_eye ? GL_EQUAL : GL_NOTEQUAL, 1, -1);
+			qglStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+			
 		}
-	} else if (gl_state.stereo_mode == STEREO_MODE_ROW_INTERLEAVED) {
-
-		int y;
-
-		qglColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-		qglDepthMask(GL_FALSE);
-
-		qglEnable(GL_STENCIL_TEST);
-		qglStencilFunc(GL_ALWAYS, 1, -1);
-		qglStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
-
-		qglBegin(GL_LINES);
-		for (y = 0; y < vid.height; y += 2) {
-			qglVertex2i(0, y);
-			qglVertex2i(vid.width, y);
-		}
-		qglEnd();
-
-		qglColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-		qglDepthMask(GL_TRUE);
-
-		qglStencilFunc((gl_state.camera_separation  * cl_stereo_separation->value) < 0 ? GL_EQUAL : GL_NOTEQUAL, 1, -1);
-		qglStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-		
 	}
 
 	if (r_norefresh->value)
