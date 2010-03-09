@@ -51,6 +51,7 @@ int			c_brush_polys, c_alias_polys;
 float		v_blend[4];			// final blending color
 
 void GL_Strings_f( void );
+void R_SetGL2D ( void );
 
 //
 // view origin
@@ -840,12 +841,13 @@ void R_RenderView (refdef_t *fd)
 
 			int y;
 
-			qglColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-			qglDepthMask(GL_FALSE);
+			R_SetGL2D();
 
 			qglEnable(GL_STENCIL_TEST);
-			qglStencilFunc(GL_ALWAYS, 1, -1);
-			qglStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
+			qglStencilOp(GL_REPLACE, GL_KEEP, GL_KEEP);
+
+			qglStencilMask(GL_TRUE);
+			qglStencilFunc(GL_NEVER, 1, 1);
 
 			qglBegin(GL_LINES);
 			for (y = 0; y < vid.height; y += 2) {
@@ -854,12 +856,8 @@ void R_RenderView (refdef_t *fd)
 			}
 			qglEnd();
 
-			qglColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-			qglDepthMask(GL_TRUE);
-
-			qglStencilFunc(drawing_left_eye ? GL_EQUAL : GL_NOTEQUAL, 1, -1);
-			qglStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-			
+			qglStencilMask(GL_FALSE);
+			qglStencilFunc(GL_EQUAL, drawing_left_eye, 1);
 		}
 	}
 
