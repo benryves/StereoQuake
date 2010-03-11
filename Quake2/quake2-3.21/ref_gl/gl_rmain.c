@@ -161,11 +161,11 @@ qboolean R_CullBox (vec3_t mins, vec3_t maxs)
 
 void R_RotateForEntity (entity_t *e)
 {
-    qglTranslatef (e->origin[0],  e->origin[1],  e->origin[2]);
+	qglTranslatef (e->origin[0],  e->origin[1],  e->origin[2]);
 
-    qglRotatef (e->angles[1],  0, 0, 1);
-    qglRotatef (-e->angles[0],  0, 1, 0);
-    qglRotatef (-e->angles[2],  1, 0, 0);
+	qglRotatef (e->angles[1],  0, 0, 1);
+	qglRotatef (-e->angles[0],  0, 1, 0);
+	qglRotatef (-e->angles[2],  1, 0, 0);
 }
 
 /*
@@ -231,7 +231,7 @@ void R_DrawSpriteModel (entity_t *e)
 
 	qglColor4f( 1, 1, 1, alpha );
 
-    GL_Bind(currentmodel->skins[e->frame]->texnum);
+	GL_Bind(currentmodel->skins[e->frame]->texnum);
 
 	GL_TexEnv( GL_MODULATE );
 
@@ -290,7 +290,7 @@ void R_DrawNullModel (void)
 	else
 		R_LightPoint (currententity->origin, shadelight);
 
-    qglPushMatrix ();
+	qglPushMatrix ();
 	R_RotateForEntity (currententity);
 
 	qglDisable (GL_TEXTURE_2D);
@@ -417,7 +417,7 @@ void GL_DrawParticles( int num_particles, const particle_t particles[], const un
 	float			scale;
 	byte			color[4];
 
-    GL_Bind(r_particletexture->texnum);
+	GL_Bind(r_particletexture->texnum);
 	qglDepthMask( GL_FALSE );		// no z buffering
 	qglEnable( GL_BLEND );
 	GL_TexEnv( GL_MODULATE );
@@ -448,13 +448,13 @@ void GL_DrawParticles( int num_particles, const particle_t particles[], const un
 
 		qglTexCoord2f( 1.0625, 0.0625 );
 		qglVertex3f( p->origin[0] + up[0]*scale, 
-			         p->origin[1] + up[1]*scale, 
-					 p->origin[2] + up[2]*scale);
+		             p->origin[1] + up[1]*scale, 
+		             p->origin[2] + up[2]*scale);
 
 		qglTexCoord2f( 0.0625, 1.0625 );
 		qglVertex3f( p->origin[0] + right[0]*scale, 
-			         p->origin[1] + right[1]*scale, 
-					 p->origin[2] + right[2]*scale);
+		             p->origin[1] + right[1]*scale, 
+		             p->origin[2] + right[2]*scale);
 	}
 
 	qglEnd ();
@@ -524,11 +524,11 @@ void R_PolyBlend (void)
 	qglDisable (GL_DEPTH_TEST);
 	qglDisable (GL_TEXTURE_2D);
 
-    qglLoadIdentity ();
+	qglLoadIdentity ();
 
 	// FIXME: get rid of these
-    qglRotatef (-90,  1, 0, 0);	    // put Z going up
-    qglRotatef (90,  0, 0, 1);	    // put Z going up
+	qglRotatef (-90,  1, 0, 0);	    // put Z going up
+	qglRotatef (90,  0, 0, 1);	    // put Z going up
 
 	qglColor4fv (v_blend);
 
@@ -676,8 +676,7 @@ void R_SetupFrame (void)
 }
 
 
-void MYgluPerspective( GLdouble fovy, GLdouble aspect,
-		     GLdouble zNear, GLdouble zFar )
+void MYgluPerspective( GLdouble fovy, GLdouble aspect, GLdouble zNear, GLdouble zFar )
 {
    GLdouble xmin, xmax, ymin, ymax;
 
@@ -723,23 +722,23 @@ void R_SetupGL (void)
 	//
 	// set up projection matrix
 	//
-    screenaspect = (float)r_newrefdef.width/r_newrefdef.height;
+	screenaspect = (float)r_newrefdef.width/r_newrefdef.height;
 //	yfov = 2*atan((float)r_newrefdef.height/r_newrefdef.width)*180/M_PI;
 	qglMatrixMode(GL_PROJECTION);
-    qglLoadIdentity ();
-    MYgluPerspective (r_newrefdef.fov_y,  screenaspect,  4,  4096);
+	qglLoadIdentity ();
+	MYgluPerspective (r_newrefdef.fov_y,  screenaspect,  4,  4096);
 
 	qglCullFace(GL_FRONT);
 
 	qglMatrixMode(GL_MODELVIEW);
-    qglLoadIdentity ();
+	qglLoadIdentity ();
 
-    qglRotatef (-90,  1, 0, 0);	    // put Z going up
-    qglRotatef (90,  0, 0, 1);	    // put Z going up
-    qglRotatef (-r_newrefdef.viewangles[2],  1, 0, 0);
-    qglRotatef (-r_newrefdef.viewangles[0],  0, 1, 0);
-    qglRotatef (-r_newrefdef.viewangles[1],  0, 0, 1);
-    qglTranslatef (-r_newrefdef.vieworg[0],  -r_newrefdef.vieworg[1],  -r_newrefdef.vieworg[2]);
+	qglRotatef (-90,  1, 0, 0);	    // put Z going up
+	qglRotatef (90,  0, 0, 1);	    // put Z going up
+	qglRotatef (-r_newrefdef.viewangles[2],  1, 0, 0);
+	qglRotatef (-r_newrefdef.viewangles[0],  0, 1, 0);
+	qglRotatef (-r_newrefdef.viewangles[1],  0, 0, 1);
+	qglTranslatef (-r_newrefdef.vieworg[0],  -r_newrefdef.vieworg[1],  -r_newrefdef.vieworg[2]);
 
 //	if ( gl_state.camera_separation != 0 && gl_state.stereo_enabled )
 //		qglTranslatef ( gl_state.camera_separation, 0, 0 );
@@ -959,10 +958,10 @@ void	R_SetGL2D (void)
 	// set 2D virtual screen size
 	qglViewport (0,0, vid.width, vid.height);
 	qglMatrixMode(GL_PROJECTION);
-    qglLoadIdentity ();
+	qglLoadIdentity ();
 	qglOrtho  (0, vid.width, vid.height, 0, -99999, 99999);
 	qglMatrixMode(GL_MODELVIEW);
-    qglLoadIdentity ();
+	qglLoadIdentity ();
 	qglDisable (GL_DEPTH_TEST);
 	qglDisable (GL_CULL_FACE);
 	qglDisable (GL_BLEND);
@@ -1220,7 +1219,7 @@ qboolean R_Init( void *hinstance, void *hWnd )
 	if ( !QGL_Init( gl_driver->string ) )
 	{
 		QGL_Shutdown();
-        ri.Con_Printf (PRINT_ALL, "ref_gl::R_Init() - could not load \"%s\"\n", gl_driver->string );
+		ri.Con_Printf (PRINT_ALL, "ref_gl::R_Init() - could not load \"%s\"\n", gl_driver->string );
 		return -1;
 	}
 
@@ -1238,7 +1237,7 @@ qboolean R_Init( void *hinstance, void *hWnd )
 	if ( !R_SetMode () )
 	{
 		QGL_Shutdown();
-        ri.Con_Printf (PRINT_ALL, "ref_gl::R_Init() - could not R_SetMode()\n" );
+		ri.Con_Printf (PRINT_ALL, "ref_gl::R_Init() - could not R_SetMode()\n" );
 		return -1;
 	}
 
@@ -1580,10 +1579,10 @@ void R_BeginFrame( float camera_separation )
 	*/
 	qglViewport (0,0, vid.width, vid.height);
 	qglMatrixMode(GL_PROJECTION);
-    qglLoadIdentity ();
+	qglLoadIdentity ();
 	qglOrtho  (0, vid.width, vid.height, 0, -99999, 99999);
 	qglMatrixMode(GL_MODELVIEW);
-    qglLoadIdentity ();
+	qglLoadIdentity ();
 	qglDisable (GL_DEPTH_TEST);
 	qglDisable (GL_CULL_FACE);
 	qglDisable (GL_BLEND);
