@@ -840,54 +840,61 @@ void R_RenderView (refdef_t *fd)
 			case STEREO_MODE_ROW_INTERLEAVED:
 			case STEREO_MODE_COLUMN_INTERLEAVED:
 			case STEREO_MODE_PIXEL_INTERLEAVED:
-
-				R_SetGL2D();
-
-				qglEnable(GL_STENCIL_TEST);
-				qglStencilMask(GL_TRUE);
-				qglColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-
-				qglStencilOp(GL_REPLACE, GL_KEEP, GL_KEEP);
-				qglStencilFunc(GL_NEVER, 0, 1);
-
-				qglBegin(GL_QUADS);
 				{
-					qglVertex2i(0, 0);
-					qglVertex2i(vid.width, 0);
-					qglVertex2i(vid.width, vid.height);
-					qglVertex2i(0, vid.height);
-				}
-				qglEnd();
+					qboolean flip_eyes = true;
+					int client_x, client_y;
 
-				qglStencilOp(GL_INVERT, GL_KEEP, GL_KEEP);
-				qglStencilFunc(GL_NEVER, 1, 1);
+					GLimp_GetClientAreaOffset(&client_x, &client_y);
 
-				qglBegin(GL_LINES);
-				{
-					if (gl_state.stereo_mode == STEREO_MODE_ROW_INTERLEAVED || gl_state.stereo_mode == STEREO_MODE_PIXEL_INTERLEAVED) {
-						int y;
-						for (y = 0; y < vid.height; y += 2) {
-							qglVertex2i(0, y);
-							qglVertex2i(vid.width, y);
+					R_SetGL2D();
+
+					qglEnable(GL_STENCIL_TEST);
+					qglStencilMask(GL_TRUE);
+					qglColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+
+					qglStencilOp(GL_REPLACE, GL_KEEP, GL_KEEP);
+					qglStencilFunc(GL_NEVER, 0, 1);
+
+					qglBegin(GL_QUADS);
+					{
+						qglVertex2i(0, 0);
+						qglVertex2i(vid.width, 0);
+						qglVertex2i(vid.width, vid.height);
+						qglVertex2i(0, vid.height);
+					}
+					qglEnd();
+
+					qglStencilOp(GL_INVERT, GL_KEEP, GL_KEEP);
+					qglStencilFunc(GL_NEVER, 1, 1);
+
+					qglBegin(GL_LINES);
+					{
+						if (gl_state.stereo_mode == STEREO_MODE_ROW_INTERLEAVED || gl_state.stereo_mode == STEREO_MODE_PIXEL_INTERLEAVED) {
+							int y;
+							for (y = 0; y < vid.height; y += 2) {
+								qglVertex2i(0, y);
+								qglVertex2i(vid.width, y);
+							}
+							flip_eyes ^= (client_y & 1);
+						}
+
+						if (gl_state.stereo_mode == STEREO_MODE_COLUMN_INTERLEAVED || gl_state.stereo_mode == STEREO_MODE_PIXEL_INTERLEAVED) {
+							int x;
+							for (x = 0; x < vid.width; x += 2) {
+								qglVertex2i(x, 0);
+								qglVertex2i(x, vid.height);
+							}
+							flip_eyes ^= (client_x & 1);
 						}
 					}
+					qglEnd();
 
-					if (gl_state.stereo_mode == STEREO_MODE_COLUMN_INTERLEAVED || gl_state.stereo_mode == STEREO_MODE_PIXEL_INTERLEAVED) {
-						int x;
-						for (x = 0; x < vid.width; x += 2) {
-							qglVertex2i(x, 0);
-							qglVertex2i(x, vid.height);
-						}
-					}
+					qglStencilMask(GL_FALSE);
+					qglColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+
+					qglStencilFunc(GL_EQUAL, drawing_left_eye ^ flip_eyes, 1);
+					qglStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 				}
-				qglEnd();
-
-				qglStencilMask(GL_FALSE);
-				qglColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-
-				qglStencilFunc(GL_EQUAL, drawing_left_eye ? 1 : 0, 1);
-				qglStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-
 				break;
 		}
 	}

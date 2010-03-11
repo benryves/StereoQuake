@@ -629,3 +629,19 @@ void GLimp_AppActivate( qboolean active )
 			ShowWindow( glw_state.hWnd, SW_MINIMIZE );
 	}
 }
+
+void GLimp_GetClientAreaOffset( int* x, int* y ) {
+	if (!gl_state.fullscreen && glw_state.hWnd)
+	{
+		/* Windowed, return the top left of the window's client rectangle. */
+		POINT p = { 0, 0 };
+		ClientToScreen(glw_state.hWnd, &p);
+		*x = p.x;
+		*y = p.y;
+	}
+	else
+	{
+		/* Full-screen, we're implicitly at (0, 0). */
+		*x = *y = 0;
+	}
+}
