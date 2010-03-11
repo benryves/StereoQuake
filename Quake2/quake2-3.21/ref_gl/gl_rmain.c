@@ -136,6 +136,7 @@ cvar_t	*vid_fullscreen;
 cvar_t	*vid_gamma;
 cvar_t	*vid_ref;
 
+cvar_t	*cl_stereo;
 cvar_t	*cl_stereo_separation;
 
 /*
@@ -1130,6 +1131,7 @@ void R_Register( void )
 	vid_gamma = ri.Cvar_Get( "vid_gamma", "1.0", CVAR_ARCHIVE );
 	vid_ref = ri.Cvar_Get( "vid_ref", "soft", CVAR_ARCHIVE );
 
+	cl_stereo = ri.Cvar_Get( "cl_stereo", "0", 0 );
 	cl_stereo_separation = ri.Cvar_Get( "cl_stereo_separation", "0", 0 );
 
 	ri.Cmd_AddCommand( "imagelist", GL_ImageList_f );
@@ -1549,6 +1551,12 @@ void R_BeginFrame( float camera_separation )
 	if ( gl_log->value )
 	{
 		GLimp_LogNewFrame();
+	}
+
+	if ( gl_state.stereo_mode != cl_stereo->value ) {
+		cvar_t	*ref;
+		ref = ri.Cvar_Get ("vid_ref", "gl", 0);
+		ref->modified = true;
 	}
 
 	/*

@@ -424,13 +424,15 @@ qboolean GLimp_InitGL (void)
 		pfd.dwFlags |= PFD_STEREO;
 		gl_state.stereo_mode = STEREO_MODE_OPENGL;
 	}
-	else if ( stereo->value > 0 && stereo->value <= STEREO_MODE_PIXEL_INTERLEAVED)
+	else if ( stereo->value >= 0 && stereo->value <= STEREO_MODE_PIXEL_INTERLEAVED)
 	{
 		gl_state.stereo_mode = stereo->value;
 	}
 	else
 	{
+		ri.Con_Printf( PRINT_ALL, "...invalid stereo format\n" );
 		gl_state.stereo_mode = STEREO_MODE_NONE;
+		ri.Cvar_SetValue( "cl_stereo", 0 );
 	}
 
 	/*
