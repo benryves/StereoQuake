@@ -138,6 +138,7 @@ cvar_t	*vid_ref;
 
 cvar_t	*cl_stereo;
 cvar_t	*cl_stereo_separation;
+cvar_t	*cl_stereo_anaglyph_colors;
 
 /*
 =================
@@ -831,10 +832,41 @@ void R_RenderView (refdef_t *fd)
 
 		switch (gl_state.stereo_mode) {
 			case STEREO_MODE_ANAGLYPH:
-				if (drawing_left_eye) {
-					qglColorMask(GL_TRUE, GL_FALSE, GL_FALSE, GL_TRUE);
-				} else {
-					qglColorMask(GL_FALSE, GL_TRUE, GL_TRUE, GL_TRUE);
+				{
+
+					// Work out the colour for each eye.
+					int anaglyph_colours[] = { 0x4, 0x3 }; // Left = red, right = cyan.
+					
+					if (strlen(cl_stereo_anaglyph_colors->string) == 2) {
+						int eye, colour, missing_bits;
+						// Decode the colour name from its character.
+						for (eye = 0; eye < 2; ++eye) {
+							colour = 0;
+							switch (toupper(cl_stereo_anaglyph_colors->string[eye])) {
+								case 'B': ++colour; // 001 Blue
+								case 'G': ++colour; // 010 Green
+								case 'C': ++colour; // 011 Cyan
+								case 'R': ++colour; // 100 Red
+								case 'M': ++colour; // 101 Magenta
+								case 'Y': ++colour; // 110 Yellow
+									anaglyph_colours[eye] = colour;
+									break;
+							}
+						}
+						// Fill in any missing bits.
+						missing_bits = ~(anaglyph_colours[0] | anaglyph_colours[1]) & 0x3;
+						for (eye = 0; eye < 2; ++eye) {
+							anaglyph_colours[eye] |= missing_bits;
+						}
+					}
+	
+					// Set the current colour.
+					qglColorMask(
+						!!(anaglyph_colours[drawing_left_eye] & 0x4),
+						!!(anaglyph_colours[drawing_left_eye] & 0x2),
+						!!(anaglyph_colours[drawing_left_eye] & 0x1),
+						GL_TRUE
+					);					
 				}
 				break;
 			case STEREO_MODE_ROW_INTERLEAVED:
@@ -1154,6 +1186,7 @@ void R_Register( void )
 
 	cl_stereo = ri.Cvar_Get( "cl_stereo", "0", 0 );
 	cl_stereo_separation = ri.Cvar_Get( "cl_stereo_separation", "0", 0 );
+	cl_stereo_anaglyph_colors = ri.Cvar_Get( "cl_stereo_anaglyph_colors", "rc", 0 );
 
 	ri.Cmd_AddCommand( "imagelist", GL_ImageList_f );
 	ri.Cmd_AddCommand( "screenshot", GL_ScreenShot_f );
