@@ -283,13 +283,13 @@ void R_Register (void)
 	r_lerpmodels = ri.Cvar_Get( "r_lerpmodels", "1", 0 );
 	r_novis = ri.Cvar_Get( "r_novis", "0", 0 );
 
-	cl_stereo = ri.Cvar_Get("cl_stereo", "0", 0);
-	cl_stereo_separation = ri.Cvar_Get("cl_stereo_separation", "0", 0);
+	cl_stereo = ri.Cvar_Get( "cl_stereo", "0", CVAR_ARCHIVE );
+	cl_stereo_separation = ri.Cvar_Get( "cl_stereo_separation", "0", CVAR_ARCHIVE );
 
 	vid_fullscreen = ri.Cvar_Get( "vid_fullscreen", "0", CVAR_ARCHIVE );
 	vid_gamma = ri.Cvar_Get( "vid_gamma", "1.0", CVAR_ARCHIVE );
 
-	ri.Cmd_AddCommand ("modellist", Mod_Modellist_f);
+	ri.Cmd_AddCommand( "modellist", Mod_Modellist_f );
 	ri.Cmd_AddCommand( "screenshot", R_ScreenShot_f );
 	ri.Cmd_AddCommand( "imagelist", R_ImageList_f );
 

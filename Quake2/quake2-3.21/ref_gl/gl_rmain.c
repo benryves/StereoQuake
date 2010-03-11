@@ -1184,9 +1184,9 @@ void R_Register( void )
 	vid_gamma = ri.Cvar_Get( "vid_gamma", "1.0", CVAR_ARCHIVE );
 	vid_ref = ri.Cvar_Get( "vid_ref", "soft", CVAR_ARCHIVE );
 
-	cl_stereo = ri.Cvar_Get( "cl_stereo", "0", 0 );
-	cl_stereo_separation = ri.Cvar_Get( "cl_stereo_separation", "0", 0 );
-	cl_stereo_anaglyph_colors = ri.Cvar_Get( "cl_stereo_anaglyph_colors", "rc", 0 );
+	cl_stereo = ri.Cvar_Get( "cl_stereo", "0", CVAR_ARCHIVE );
+	cl_stereo_separation = ri.Cvar_Get( "cl_stereo_separation", "0", CVAR_ARCHIVE );
+	cl_stereo_anaglyph_colors = ri.Cvar_Get( "cl_stereo_anaglyph_colors", "rc", CVAR_ARCHIVE );
 
 	ri.Cmd_AddCommand( "imagelist", GL_ImageList_f );
 	ri.Cmd_AddCommand( "screenshot", GL_ScreenShot_f );
