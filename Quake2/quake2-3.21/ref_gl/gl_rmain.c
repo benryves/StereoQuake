@@ -770,7 +770,6 @@ void R_Clear (void)
 	// Check whether the stencil buffer needs clearing, and do so if need be.
 	GLbitfield stencilFlags = 0;
 	if (gl_state.stereo_mode >= STEREO_MODE_ROW_INTERLEAVED && gl_state.stereo_mode <= STEREO_MODE_PIXEL_INTERLEAVED) {
-		//qglStencilMask(GL_TRUE);
 		qglClearStencil(0);
 		stencilFlags |= GL_STENCIL_BUFFER_BIT;
 	}
@@ -808,11 +807,6 @@ void R_Clear (void)
 	}
 
 	qglDepthRange (gldepthmin, gldepthmax);
-
-
-	if (gl_state.stereo_mode >= STEREO_MODE_ROW_INTERLEAVED && gl_state.stereo_mode <= STEREO_MODE_PIXEL_INTERLEAVED) {
-		//qglStencilMask(GL_FALSE);
-	}
 
 }
 
