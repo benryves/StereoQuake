@@ -1011,6 +1011,20 @@ static void GL_DrawStereoPattern( void )
 	}
 }
 
+enum opengl_special_buffer_modes GL_GetSpecialBufferModeForStereoMode(enum stereo_modes stereo_mode) {
+	switch (stereo_mode) {
+		case STEREO_MODE_NONE:
+		case STEREO_MODE_ANAGLYPH:
+			return OPENGL_SPECIAL_BUFFER_MODE_NONE;
+		case STEREO_MODE_OPENGL:
+			return OPENGL_SPECIAL_BUFFER_MODE_STEREO;
+		case STEREO_MODE_ROW_INTERLEAVED:
+		case STEREO_MODE_COLUMN_INTERLEAVED:
+		case STEREO_MODE_PIXEL_INTERLEAVED:
+			return OPENGL_SPECIAL_BUFFER_MODE_STENCIL;
+	}
+	return OPENGL_SPECIAL_BUFFER_MODE_NONE;
+}
 
 /*
 ====================
@@ -1553,10 +1567,20 @@ void R_BeginFrame( float camera_separation )
 		GLimp_LogNewFrame();
 	}
 
+	/*
+	** force a vid_restart if cl_stereo has been modified.
+	*/
 	if ( gl_state.stereo_mode != cl_stereo->value ) {
-		cvar_t	*ref;
-		ref = ri.Cvar_Get ("vid_ref", "gl", 0);
-		ref->modified = true;
+		// If we've gone from one mode to another with the same special buffer requirements there's no need to restart.
+		if ( GL_GetSpecialBufferModeForStereoMode( gl_state.stereo_mode ) == GL_GetSpecialBufferModeForStereoMode( cl_stereo->value )  ) {
+			gl_state.stereo_mode = cl_stereo->value;
+		}
+		else
+		{
+			cvar_t	*ref;
+			ref = ri.Cvar_Get ("vid_ref", "gl", 0);
+			ref->modified = true;
+		}
 	}
 
 	/*

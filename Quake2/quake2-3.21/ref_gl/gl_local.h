@@ -401,6 +401,12 @@ enum stereo_modes {
 	STEREO_MODE_PIXEL_INTERLEAVED,
 };
 
+enum opengl_special_buffer_modes {
+	OPENGL_SPECIAL_BUFFER_MODE_NONE,
+	OPENGL_SPECIAL_BUFFER_MODE_STEREO,
+	OPENGL_SPECIAL_BUFFER_MODE_STENCIL,
+};
+
 typedef struct
 {
 	int         renderer;
