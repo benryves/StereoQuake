@@ -493,7 +493,7 @@ surfcache_t     *D_CacheSurface (msurface_t *surface, int miplevel);
 
 extern int      d_vrectx, d_vrecty, d_vrectright_particle, d_vrectbottom_particle;
 
-extern int      d_pix_min, d_pix_max, d_pix_shift;
+extern int      d_pix_min, d_pix_max, d_pix_scale;
 
 extern pixel_t  *d_viewbuffer;
 extern short *d_pzbuffer;

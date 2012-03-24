@@ -538,13 +538,13 @@ void R_DrawParticle( void )
 	*/
 	pz = d_pzbuffer + (d_zwidth * v) + u;
 	pdest = d_viewbuffer + d_scantable[v] + u;
-	izi = (int)(zi * 0x8000);
+	izi = (int)(zi * 0x8000 * d_pix_scale);
 
 	/*
 	** determine the screen area covered by the particle,
 	** which also means clamping to a min and max
 	*/
-	pix = izi >> d_pix_shift;
+	pix = izi >> 7;
 	if (pix < d_pix_min)
 		pix = d_pix_min;
 	else if (pix > d_pix_max)

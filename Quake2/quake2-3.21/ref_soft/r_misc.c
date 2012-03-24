@@ -37,7 +37,7 @@ extern int			d_aflatcolor;
 
 int	d_vrectx, d_vrecty, d_vrectright_particle, d_vrectbottom_particle;
 
-int	d_pix_min, d_pix_max, d_pix_shift;
+int	d_pix_min, d_pix_max, d_pix_scale;
 
 int		d_scantable[MAXHEIGHT];
 short	*zspantable[MAXHEIGHT]; 
@@ -91,7 +91,12 @@ void D_ViewChanged (void)
 		d_pix_min = 1;
 
 	d_pix_max = (int)((float)r_refdef.vrect.width / (320.0 / 4.0) + 0.5);
-	d_pix_shift = 8 - (int)((float)r_refdef.vrect.width / 320.0 + 0.5);
+	
+	d_pix_scale = (int)((float)r_refdef.vrect.width / 320.0 - 0.5);
+	
+	if (d_pix_scale < 1)
+		d_pix_scale = 1;
+
 	if (d_pix_max < 1)
 		d_pix_max = 1;
 
