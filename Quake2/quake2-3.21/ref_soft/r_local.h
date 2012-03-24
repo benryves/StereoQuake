@@ -189,6 +189,8 @@ extern oldrefdef_t      r_refdef;
 // !!! if this is changed, it must be changed in d_ifacea.h too !!!
 #define CYCLE                   128             // turbulent cycle size
 
+#define INTCYCLE                (128*vid.width/320) // turbulent cycle size for warping view under water
+
 #define SCANBUFFERPAD           0x1000
 
 #define DS_SPAN_LIST_END        -128
@@ -229,8 +231,11 @@ extern oldrefdef_t      r_refdef;
 // turbulence stuff
 
 #define AMP             8*0x10000
-#define AMP2    3
+#define AMP2_CALC  (3*vid.width/320)
+#define AMP2_MAX   8192
+#define AMP2       ((AMP2_CALC>AMP2_MAX)?AMP2_MAX:AMP2_CALC)
 #define SPEED   20
+#define SPEED2  (SPEED*vid.width/320)
 
 
 /*

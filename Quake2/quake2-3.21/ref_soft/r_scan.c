@@ -50,8 +50,8 @@ void D_WarpScreen (void)
 	byte	**row;
 
 	static int	cached_width, cached_height;
-	static byte	*rowptr[32768+AMP2*2];
-	static int	column[32768+AMP2*2];
+	static byte	*rowptr[32768+AMP2_MAX*2];
+	static int	column[32768+AMP2_MAX*2];
 
 	//
 	// these are constant over resolutions, and can be saved
@@ -65,6 +65,9 @@ void D_WarpScreen (void)
 	{
 		cached_width = w;
 		cached_height = h;
+
+		R_InitTurb();
+
 		for (v=0 ; v<h+AMP2*2 ; v++)
 		{
 			v2 = (int)((float)v/(h + AMP2 * 2) * r_refdef.vrect.height);
@@ -78,7 +81,7 @@ void D_WarpScreen (void)
 		}
 	}
 
-	turb = intsintable + ((int)(r_newrefdef.time*SPEED)&(CYCLE-1));
+	turb = intsintable + ((int)(r_newrefdef.time*SPEED2)%INTCYCLE);
 	dest = vid.buffer + r_newrefdef.y * vid.rowbytes + r_newrefdef.x;
 
 	for (v=0 ; v<h ; v++, dest += vid.rowbytes)

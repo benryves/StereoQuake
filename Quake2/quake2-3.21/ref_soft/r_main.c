@@ -248,7 +248,7 @@ void R_InitTurb (void)
 	for (i=0 ; i<sizeof(sintable)/sizeof(sintable[0]) ; i++)
 	{
 		sintable[i] = AMP + sin(i*3.14159*2/CYCLE)*AMP;
-		intsintable[i] = AMP2 + sin(i*3.14159*2/CYCLE)*AMP2;	// AMP2, not 20
+		intsintable[i] = AMP2 + sin(i*3.14159*2/INTCYCLE)*AMP2;	// AMP2, not 20
 		blanktable[i] = 0;			//PGM
 	}
 }
