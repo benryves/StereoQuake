@@ -40,6 +40,9 @@ static cvar_t *gl_finish;
 static cvar_t *sw_mode;
 static cvar_t *sw_stipplealpha;
 
+static cvar_t *cl_stereo;
+static cvar_t *cl_stereo_separation;
+
 extern void M_ForceMenuOff( void );
 
 /*
@@ -66,6 +69,9 @@ static menulist_s  		s_fs_box[2];
 static menulist_s  		s_stipple_box;
 static menulist_s  		s_paletted_texture_box;
 static menulist_s  		s_finish_box;
+static menulist_s       s_stereo_mode[2];
+static menuslider_s     s_stereo_separation[2];
+static menulist_s       s_stereo_eye_order[2];
 static menuaction_s		s_cancel_action[2];
 static menuaction_s		s_defaults_action[2];
 
@@ -110,6 +116,26 @@ static void BrightnessCallback( void *s )
 	}
 }
 
+
+static void StereoModeCallback( void *s )
+{
+	if ( s_current_menu_index == OPENGL_MENU ) {
+		s_stereo_mode[SOFTWARE_MENU].curvalue = s_stereo_mode[OPENGL_MENU].curvalue ? 1 : 0;
+	} else {
+		s_stereo_mode[OPENGL_MENU].curvalue = s_stereo_mode[SOFTWARE_MENU].curvalue ? 3 : 0;
+	}
+}
+
+static void StereoSeparationCallback ( void *s )
+{
+	s_stereo_separation[!s_current_menu_index].curvalue = s_stereo_separation[s_current_menu_index].curvalue;
+}
+
+static void StereoEyeOrderCallback ( void *s )
+{
+	s_stereo_eye_order[!s_current_menu_index].curvalue = s_stereo_eye_order[s_current_menu_index].curvalue;
+}
+
 static void ResetDefaults( void *unused )
 {
 	VID_MenuInit();
@@ -125,6 +151,9 @@ static void ApplyChanges( void *unused )
 	s_fs_box[!s_current_menu_index].curvalue = s_fs_box[s_current_menu_index].curvalue;
 	s_brightness_slider[!s_current_menu_index].curvalue = s_brightness_slider[s_current_menu_index].curvalue;
 	s_ref_list[!s_current_menu_index].curvalue = s_ref_list[s_current_menu_index].curvalue;
+	s_stereo_mode[!s_current_menu_index].curvalue = s_stereo_mode[s_current_menu_index].curvalue;
+	s_stereo_separation[!s_current_menu_index].curvalue = s_stereo_separation[s_current_menu_index].curvalue;
+	s_stereo_eye_order[!s_current_menu_index].curvalue = s_stereo_eye_order[s_current_menu_index].curvalue;
 
 	/*
 	** invert sense so greater = brighter, and scale to a range of 0.5 to 1.3
@@ -139,6 +168,8 @@ static void ApplyChanges( void *unused )
 	Cvar_SetValue( "gl_finish", s_finish_box.curvalue );
 	Cvar_SetValue( "sw_mode", s_mode_list[SOFTWARE_MENU].curvalue );
 	Cvar_SetValue( "gl_mode", s_mode_list[OPENGL_MENU].curvalue );
+	Cvar_SetValue( "cl_stereo", s_stereo_mode[OPENGL_MENU].curvalue );
+	Cvar_SetValue( "cl_stereo_separation", s_stereo_separation[OPENGL_MENU].curvalue * (2 * s_stereo_eye_order[OPENGL_MENU].curvalue - 1) );
 
 	switch ( s_ref_list[s_current_menu_index].curvalue )
 	{
@@ -240,6 +271,28 @@ void VID_MenuInit( void )
 		"yes",
 		0
 	};
+	static const char *stereo_modes_opengl[] =
+	{
+		"[off            ]",
+		"[quad buffered  ]",
+		"[anaglyph       ]",
+		"[row interleaved]",
+		"[col interleaved]",
+		"[checkerboard   ]",
+		0
+	};
+	static const char *stereo_modes_software[] =
+	{
+		"[off            ]",
+		"[row interleaved]",
+		0
+	};
+	static const char *stereo_eye_orders[] =
+	{
+		"[left right]",
+		"[right left]",
+		0
+	};
 	int i;
 
 	if ( !gl_driver )
@@ -257,6 +310,11 @@ void VID_MenuInit( void )
 
 	if ( !sw_stipplealpha )
 		sw_stipplealpha = Cvar_Get( "sw_stipplealpha", "0", CVAR_ARCHIVE );
+
+	if ( !cl_stereo )
+		cl_stereo = Cvar_Get( "cl_stereo", "0", 0 );
+	if ( !cl_stereo_separation )
+		cl_stereo_separation = Cvar_Get( "cl_stereo_separation", "0", CVAR_ARCHIVE );
 
 	s_mode_list[SOFTWARE_MENU].curvalue = sw_mode->value;
 	s_mode_list[OPENGL_MENU].curvalue = gl_mode->value;
@@ -330,18 +388,47 @@ void VID_MenuInit( void )
 		s_fs_box[i].itemnames = yesno_names;
 		s_fs_box[i].curvalue = vid_fullscreen->value;
 
+		s_stereo_mode[i].generic.type = MTYPE_SPINCONTROL;
+		s_stereo_mode[i].generic.x	= 0;
+		s_stereo_mode[i].generic.y	= 100;
+		s_stereo_mode[i].generic.name	= "stereo 3D";
+		s_stereo_mode[i].generic.callback = StereoModeCallback;
+
+		s_stereo_separation[i].generic.type	= MTYPE_SLIDER;
+		s_stereo_separation[i].generic.x		= 0;
+		s_stereo_separation[i].generic.y		= 110;
+		s_stereo_separation[i].generic.name	= "stereo separation";
+		s_stereo_separation[i].minvalue = 0;
+		s_stereo_separation[i].maxvalue = 20;
+		s_stereo_separation[i].curvalue = abs( cl_stereo_separation->value );
+		s_stereo_separation[i].generic.callback = StereoSeparationCallback;
+
+		s_stereo_eye_order[i].generic.type	= MTYPE_SPINCONTROL;
+		s_stereo_eye_order[i].generic.x		= 0;
+		s_stereo_eye_order[i].generic.y		= 120;
+		s_stereo_eye_order[i].generic.name	= "stereo eye order";
+		s_stereo_eye_order[i].itemnames = stereo_eye_orders;
+		s_stereo_eye_order[i].curvalue = cl_stereo_separation->value < 0 ? 0 : 1;
+		s_stereo_eye_order[i].generic.callback = StereoEyeOrderCallback;
+
 		s_defaults_action[i].generic.type = MTYPE_ACTION;
 		s_defaults_action[i].generic.name = "reset to defaults";
 		s_defaults_action[i].generic.x    = 0;
-		s_defaults_action[i].generic.y    = 90;
+		s_defaults_action[i].generic.y    = 140;
 		s_defaults_action[i].generic.callback = ResetDefaults;
 
 		s_cancel_action[i].generic.type = MTYPE_ACTION;
 		s_cancel_action[i].generic.name = "cancel";
 		s_cancel_action[i].generic.x    = 0;
-		s_cancel_action[i].generic.y    = 100;
+		s_cancel_action[i].generic.y    = 150;
 		s_cancel_action[i].generic.callback = CancelChanges;
 	}
+
+	s_stereo_mode[OPENGL_MENU].curvalue = cl_stereo->value;
+	s_stereo_mode[OPENGL_MENU].itemnames = stereo_modes_opengl;
+
+	s_stereo_mode[SOFTWARE_MENU].curvalue = cl_stereo->value ? 1 : 0;
+	s_stereo_mode[SOFTWARE_MENU].itemnames = stereo_modes_software;
 
 	s_stipple_box.generic.type = MTYPE_SPINCONTROL;
 	s_stipple_box.generic.x	= 0;
@@ -387,6 +474,13 @@ void VID_MenuInit( void )
 	Menu_AddItem( &s_opengl_menu, ( void * ) &s_tq_slider );
 	Menu_AddItem( &s_opengl_menu, ( void * ) &s_paletted_texture_box );
 	Menu_AddItem( &s_opengl_menu, ( void * ) &s_finish_box );
+	
+	Menu_AddItem( &s_software_menu, ( void * ) &s_stereo_mode[SOFTWARE_MENU] );
+	Menu_AddItem( &s_software_menu, ( void * ) &s_stereo_separation[SOFTWARE_MENU] );
+	Menu_AddItem( &s_software_menu, ( void * ) &s_stereo_eye_order[SOFTWARE_MENU] );
+	Menu_AddItem( &s_opengl_menu, ( void * ) &s_stereo_mode[OPENGL_MENU] );
+	Menu_AddItem( &s_opengl_menu, ( void * ) &s_stereo_separation[OPENGL_MENU] );
+	Menu_AddItem( &s_opengl_menu, ( void * ) &s_stereo_eye_order[OPENGL_MENU] );
 
 	Menu_AddItem( &s_software_menu, ( void * ) &s_defaults_action[SOFTWARE_MENU] );
 	Menu_AddItem( &s_software_menu, ( void * ) &s_cancel_action[SOFTWARE_MENU] );
@@ -395,8 +489,13 @@ void VID_MenuInit( void )
 
 	Menu_Center( &s_software_menu );
 	Menu_Center( &s_opengl_menu );
-	s_opengl_menu.x -= 8;
+	
 	s_software_menu.x -= 8;
+	s_software_menu.y += 20;
+	
+	s_opengl_menu.x -= 8;
+	s_opengl_menu.y += 20;
+	
 }
 
 /*
