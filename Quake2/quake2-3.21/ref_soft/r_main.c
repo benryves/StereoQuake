@@ -38,7 +38,7 @@ model_t		*currentmodel;
 
 model_t		*r_worldmodel;
 
-byte		r_warpbuffer[WARP_WIDTH * WARP_HEIGHT];
+byte		r_warpbuffer[MAX_WARP_WIDTH * MAX_WARP_HEIGHT];
 
 swstate_t sw_state;
 
