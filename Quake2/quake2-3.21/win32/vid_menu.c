@@ -208,6 +208,7 @@ static void CancelChanges( void *unused )
 */
 void VID_MenuInit( void )
 {
+
 	static const char *resolutions[] = 
 	{
 		"[320 240  ]",
@@ -221,6 +222,7 @@ void VID_MenuInit( void )
 		"[1280 960 ]",
 		"[1600 1200]",
 		"[2048 1536]",
+		"[desktop  ]",
 		0
 	};
 	static const char *refs[] =
@@ -301,7 +303,7 @@ void VID_MenuInit( void )
 		s_mode_list[i].generic.type = MTYPE_SPINCONTROL;
 		s_mode_list[i].generic.name = "video mode";
 		s_mode_list[i].generic.x = 0;
-		s_mode_list[i].generic.y = 10;
+		s_mode_list[i].generic.y = 11;
 		s_mode_list[i].itemnames = resolutions;
 
 		s_screensize_slider[i].generic.type	= MTYPE_SLIDER;
