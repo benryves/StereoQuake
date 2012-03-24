@@ -512,9 +512,9 @@ extern int              r_screenwidth;
 
 extern int              r_drawnpolycount;
 
-extern int      sintable[1280];
-extern int      intsintable[1280];
-extern int		blanktable[1280];		// PGM
+extern int      sintable[32768];
+extern int      intsintable[32768];
+extern int		blanktable[32768];		// PGM
 
 extern  vec3_t  vup, base_vup;
 extern  vec3_t  vpn, base_vpn;

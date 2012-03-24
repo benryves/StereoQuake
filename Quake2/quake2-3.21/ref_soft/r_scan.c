@@ -50,8 +50,8 @@ void D_WarpScreen (void)
 	byte	**row;
 
 	static int	cached_width, cached_height;
-	static byte	*rowptr[1200+AMP2*2];
-	static int	column[1600+AMP2*2];
+	static byte	*rowptr[32768+AMP2*2];
+	static int	column[32768+AMP2*2];
 
 	//
 	// these are constant over resolutions, and can be saved
