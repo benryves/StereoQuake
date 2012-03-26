@@ -170,7 +170,7 @@ static void ApplyChanges( void *unused )
 	Cvar_SetValue( "sw_mode", s_mode_list[SOFTWARE_MENU].curvalue );
 	Cvar_SetValue( "gl_mode", s_mode_list[OPENGL_MENU].curvalue );
 	Cvar_SetValue( "cl_stereo", s_stereo_mode[OPENGL_MENU].curvalue );
-	Cvar_SetValue( "cl_stereo_separation", s_stereo_separation[OPENGL_MENU].curvalue * (2 * s_stereo_eye_order[OPENGL_MENU].curvalue - 1) );
+	Cvar_SetValue( "cl_stereo_separation", 0.1f * (s_stereo_separation[OPENGL_MENU].curvalue * (2 * s_stereo_eye_order[OPENGL_MENU].curvalue - 1)) );
 
 	switch ( s_ref_list[s_current_menu_index].curvalue )
 	{
@@ -403,7 +403,7 @@ void VID_MenuInit( void )
 		s_stereo_separation[i].generic.name	= "stereo separation";
 		s_stereo_separation[i].minvalue = 0;
 		s_stereo_separation[i].maxvalue = 20;
-		s_stereo_separation[i].curvalue = abs( cl_stereo_separation->value );
+		s_stereo_separation[i].curvalue = abs( 10 * cl_stereo_separation->value );
 		s_stereo_separation[i].generic.callback = StereoSeparationCallback;
 
 		s_stereo_eye_order[i].generic.type	= MTYPE_SPINCONTROL;
