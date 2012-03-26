@@ -42,6 +42,7 @@ static cvar_t *sw_stipplealpha;
 
 static cvar_t *cl_stereo;
 static cvar_t *cl_stereo_separation;
+static cvar_t *cl_stereo_convergence;
 
 extern void M_ForceMenuOff( void );
 
@@ -312,9 +313,11 @@ void VID_MenuInit( void )
 		sw_stipplealpha = Cvar_Get( "sw_stipplealpha", "0", CVAR_ARCHIVE );
 
 	if ( !cl_stereo )
-		cl_stereo = Cvar_Get( "cl_stereo", "0", 0 );
+		cl_stereo = Cvar_Get( "cl_stereo", "0", CVAR_ARCHIVE );
 	if ( !cl_stereo_separation )
-		cl_stereo_separation = Cvar_Get( "cl_stereo_separation", "0", CVAR_ARCHIVE );
+		cl_stereo_separation = Cvar_Get( "cl_stereo_separation", "-0.4", CVAR_ARCHIVE );
+	if ( !cl_stereo_convergence )
+		cl_stereo_convergence = Cvar_Get( "cl_stereo_convergence", "1", CVAR_ARCHIVE );
 
 	s_mode_list[SOFTWARE_MENU].curvalue = sw_mode->value;
 	s_mode_list[OPENGL_MENU].curvalue = gl_mode->value;

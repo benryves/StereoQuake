@@ -148,6 +148,7 @@ cvar_t	*sw_lockpvs;
 
 cvar_t *cl_stereo;
 cvar_t *cl_stereo_separation;
+cvar_t *cl_stereo_convergence;
 
 extern int r_half_height_particles;
 
@@ -284,7 +285,8 @@ void R_Register (void)
 	r_novis = ri.Cvar_Get( "r_novis", "0", 0 );
 
 	cl_stereo = ri.Cvar_Get( "cl_stereo", "0", CVAR_ARCHIVE );
-	cl_stereo_separation = ri.Cvar_Get( "cl_stereo_separation", "0", CVAR_ARCHIVE );
+	cl_stereo_separation = ri.Cvar_Get( "cl_stereo_separation", "-0.4", CVAR_ARCHIVE );
+	cl_stereo_convergence = ri.Cvar_Get( "cl_stereo_convergence", "1", CVAR_ARCHIVE );
 
 	vid_fullscreen = ri.Cvar_Get( "vid_fullscreen", "0", CVAR_ARCHIVE );
 	vid_gamma = ri.Cvar_Get( "vid_gamma", "1.0", CVAR_ARCHIVE );
