@@ -689,11 +689,6 @@ void MYgluPerspective( GLdouble fovy, GLdouble aspect, GLdouble zNear, GLdouble 
    xmin = ymin * aspect;
    xmax = ymax * aspect;
 
-   // I'm not sure why this is being done here, but it seems to cock up stereoscopic rendering.
-   // I've commented it out as the actual camera offsetting code appears to be done in cl_view.c
-   //xmin += -( 2 * gl_state.camera_separation ) / zNear;
-   //xmax += -( 2 * gl_state.camera_separation ) / zNear;
-
    xmin -= cl_stereo_convergence->value * (gl_state.camera_separation / zNear);
    xmax -= cl_stereo_convergence->value * (gl_state.camera_separation / zNear);
 
