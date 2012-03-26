@@ -73,6 +73,7 @@ static menulist_s  		s_finish_box;
 static menulist_s       s_stereo_mode[2];
 static menuslider_s     s_stereo_separation[2];
 static menulist_s       s_stereo_eye_order[2];
+static menuslider_s     s_stereo_convergence[2];
 static menuaction_s		s_cancel_action[2];
 static menuaction_s		s_defaults_action[2];
 
@@ -137,6 +138,11 @@ static void StereoEyeOrderCallback ( void *s )
 	s_stereo_eye_order[!s_current_menu_index].curvalue = s_stereo_eye_order[s_current_menu_index].curvalue;
 }
 
+static void StereoConvergenceCallback ( void *s )
+{
+	s_stereo_convergence[!s_current_menu_index].curvalue = s_stereo_convergence[s_current_menu_index].curvalue;
+}
+
 static void ResetDefaults( void *unused )
 {
 	VID_MenuInit();
@@ -171,6 +177,7 @@ static void ApplyChanges( void *unused )
 	Cvar_SetValue( "gl_mode", s_mode_list[OPENGL_MENU].curvalue );
 	Cvar_SetValue( "cl_stereo", s_stereo_mode[OPENGL_MENU].curvalue );
 	Cvar_SetValue( "cl_stereo_separation", 0.1f * (s_stereo_separation[OPENGL_MENU].curvalue * (2 * s_stereo_eye_order[OPENGL_MENU].curvalue - 1)) );
+	Cvar_SetValue( "cl_stereo_convergence", 0.1f * s_stereo_convergence[OPENGL_MENU].curvalue );
 
 	switch ( s_ref_list[s_current_menu_index].curvalue )
 	{
@@ -414,16 +421,25 @@ void VID_MenuInit( void )
 		s_stereo_eye_order[i].curvalue = cl_stereo_separation->value < 0 ? 0 : 1;
 		s_stereo_eye_order[i].generic.callback = StereoEyeOrderCallback;
 
+		s_stereo_convergence[i].generic.type	= MTYPE_SLIDER;
+		s_stereo_convergence[i].generic.x		= 0;
+		s_stereo_convergence[i].generic.y		= 130;
+		s_stereo_convergence[i].generic.name	= "stereo convergence";
+		s_stereo_convergence[i].minvalue = 0;
+		s_stereo_convergence[i].maxvalue = 20;
+		s_stereo_convergence[i].curvalue = 10 * cl_stereo_convergence->value;
+		s_stereo_convergence[i].generic.callback = StereoConvergenceCallback;
+
 		s_defaults_action[i].generic.type = MTYPE_ACTION;
 		s_defaults_action[i].generic.name = "reset to defaults";
 		s_defaults_action[i].generic.x    = 0;
-		s_defaults_action[i].generic.y    = 140;
+		s_defaults_action[i].generic.y    = 150;
 		s_defaults_action[i].generic.callback = ResetDefaults;
 
 		s_cancel_action[i].generic.type = MTYPE_ACTION;
 		s_cancel_action[i].generic.name = "cancel";
 		s_cancel_action[i].generic.x    = 0;
-		s_cancel_action[i].generic.y    = 150;
+		s_cancel_action[i].generic.y    = 160;
 		s_cancel_action[i].generic.callback = CancelChanges;
 	}
 
@@ -481,9 +497,11 @@ void VID_MenuInit( void )
 	Menu_AddItem( &s_software_menu, ( void * ) &s_stereo_mode[SOFTWARE_MENU] );
 	Menu_AddItem( &s_software_menu, ( void * ) &s_stereo_separation[SOFTWARE_MENU] );
 	Menu_AddItem( &s_software_menu, ( void * ) &s_stereo_eye_order[SOFTWARE_MENU] );
+	Menu_AddItem( &s_software_menu, ( void * ) &s_stereo_convergence[SOFTWARE_MENU] );
 	Menu_AddItem( &s_opengl_menu, ( void * ) &s_stereo_mode[OPENGL_MENU] );
 	Menu_AddItem( &s_opengl_menu, ( void * ) &s_stereo_separation[OPENGL_MENU] );
 	Menu_AddItem( &s_opengl_menu, ( void * ) &s_stereo_eye_order[OPENGL_MENU] );
+	Menu_AddItem( &s_opengl_menu, ( void * ) &s_stereo_convergence[OPENGL_MENU] );
 
 	Menu_AddItem( &s_software_menu, ( void * ) &s_defaults_action[SOFTWARE_MENU] );
 	Menu_AddItem( &s_software_menu, ( void * ) &s_cancel_action[SOFTWARE_MENU] );
