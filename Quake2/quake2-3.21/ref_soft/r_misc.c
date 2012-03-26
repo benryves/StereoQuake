@@ -42,6 +42,8 @@ int	d_pix_min, d_pix_max, d_pix_scale;
 int		d_scantable[MAXHEIGHT];
 short	*zspantable[MAXHEIGHT]; 
 
+extern float r_camera_separation;
+
 /*
 ================
 D_Patch
@@ -324,6 +326,24 @@ void R_SetUpFrustumIndexes (void)
 		pfrustum_indexes[i] = pindex;
 		pindex += 6;
 	}
+}
+
+/*
+===============
+R_GetXOrigin
+
+Gets the X origin. This is 0.5 by default but can be offset when stereo convergence
+===============
+*/
+float R_GetXOrigin (void) {
+	float xOrigin = 0.5f;
+	if ( r_camera_separation && cl_stereo->value  && cl_stereo_convergence->value ) {
+		float zNear = 4;
+		float ymax = zNear * tan( r_newrefdef.fov_y * M_PI / 360.0 );
+		float xmax = ymax * (float)abs(vid.width) / (float)vid.height;
+		xOrigin += (cl_stereo_convergence->value * (r_camera_separation / zNear)) / (xmax * 2);
+	}
+	return xOrigin;
 }
 
 /*

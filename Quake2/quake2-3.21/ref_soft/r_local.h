@@ -214,7 +214,9 @@ extern oldrefdef_t      r_refdef;
 #define BMODEL_FULLY_CLIPPED    0x10 // value returned by R_BmodelCheckBBox ()
 									 //  if bbox is trivially rejected
 
-#define XCENTERING      (1.0 / 2.0)
+float R_GetXOrigin (void);
+
+#define XCENTERING      (R_GetXOrigin())
 #define YCENTERING      (1.0 / 2.0)
 
 #define CLIP_EPSILON            0.001
@@ -459,6 +461,7 @@ void R_DrawParticle( void );
 void D_ViewChanged (void);
 void D_WarpScreen (void);
 void R_PolysetUpdateTables (void);
+float D_GetXOrigin (void);
 
 extern void *acolormap; // FIXME: should go away
 
@@ -583,6 +586,8 @@ extern cvar_t	*vid_fullscreen;
 extern	cvar_t	*vid_gamma;
 
 extern cvar_t	*cl_stereo;
+extern cvar_t	*cl_stereo_separation;
+extern cvar_t	*cl_stereo_convergence;
 
 
 extern  clipplane_t     view_clipplanes[4];

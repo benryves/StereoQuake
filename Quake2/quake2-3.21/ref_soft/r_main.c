@@ -71,8 +71,8 @@ vec3_t	r_origin;
 //
 // current camera separation and whether to offset by a scanline or not.
 //
-float   r_camera_separation;
-int     offset_one_scanline;
+float   r_camera_separation = 0;
+int     offset_one_scanline = 0;
 
 //
 // screen size info
