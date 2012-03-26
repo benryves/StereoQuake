@@ -904,8 +904,8 @@ void R_RenderView (refdef_t *fd)
 						if (gl_state.stereo_mode == STEREO_MODE_ROW_INTERLEAVED || gl_state.stereo_mode == STEREO_MODE_PIXEL_INTERLEAVED) {
 							int y;
 							for (y = 0; y <= vid.height; y += 2) {
-								qglVertex2i(0, y);
-								qglVertex2i(vid.width, y);
+								qglVertex2f(0, y - 0.5f);
+								qglVertex2f(vid.width, y - 0.5f);
 							}
 							flip_eyes ^= (client_y & 1);
 						}
@@ -913,8 +913,8 @@ void R_RenderView (refdef_t *fd)
 						if (gl_state.stereo_mode == STEREO_MODE_COLUMN_INTERLEAVED || gl_state.stereo_mode == STEREO_MODE_PIXEL_INTERLEAVED) {
 							int x;
 							for (x = 0; x <= vid.width; x += 2) {
-								qglVertex2i(x, 0);
-								qglVertex2i(x, vid.height);
+								qglVertex2f(x - 0.5f, 0);
+								qglVertex2f(x - 0.5f, vid.height);
 							}
 							flip_eyes ^= (client_x & 1);
 						}
