@@ -122,9 +122,9 @@ static void BrightnessCallback( void *s )
 static void StereoModeCallback( void *s )
 {
 	if ( s_current_menu_index == OPENGL_MENU ) {
-		s_stereo_mode[SOFTWARE_MENU].curvalue = s_stereo_mode[OPENGL_MENU].curvalue ? 1 : 0;
+		s_stereo_mode[SOFTWARE_MENU].curvalue = s_stereo_mode[OPENGL_MENU].curvalue / 3;
 	} else {
-		s_stereo_mode[OPENGL_MENU].curvalue = s_stereo_mode[SOFTWARE_MENU].curvalue ? 3 : 0;
+		s_stereo_mode[OPENGL_MENU].curvalue = s_stereo_mode[SOFTWARE_MENU].curvalue * 3;
 	}
 }
 
@@ -158,9 +158,15 @@ static void ApplyChanges( void *unused )
 	s_fs_box[!s_current_menu_index].curvalue = s_fs_box[s_current_menu_index].curvalue;
 	s_brightness_slider[!s_current_menu_index].curvalue = s_brightness_slider[s_current_menu_index].curvalue;
 	s_ref_list[!s_current_menu_index].curvalue = s_ref_list[s_current_menu_index].curvalue;
-	s_stereo_mode[!s_current_menu_index].curvalue = s_stereo_mode[s_current_menu_index].curvalue;
+	if ( s_current_menu_index == OPENGL_MENU ) {
+		s_stereo_mode[SOFTWARE_MENU].curvalue = s_stereo_mode[OPENGL_MENU].curvalue / 3;
+	} else {
+		s_stereo_mode[OPENGL_MENU].curvalue = s_stereo_mode[SOFTWARE_MENU].curvalue * 3;
+	}
+
 	s_stereo_separation[!s_current_menu_index].curvalue = s_stereo_separation[s_current_menu_index].curvalue;
 	s_stereo_eye_order[!s_current_menu_index].curvalue = s_stereo_eye_order[s_current_menu_index].curvalue;
+	s_stereo_convergence[!s_current_menu_index].curvalue = s_stereo_convergence[s_current_menu_index].curvalue;
 
 	/*
 	** invert sense so greater = brighter, and scale to a range of 0.5 to 1.3
