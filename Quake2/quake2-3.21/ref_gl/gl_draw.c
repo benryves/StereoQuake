@@ -135,6 +135,7 @@ Draw_StretchPic
 void Draw_StretchPic (int x, int y, int w, int h, char *pic)
 {
 	image_t *gl;
+	GLint previousMagFilter;
 
 	gl = Draw_FindPic (pic);
 	if (!gl)
@@ -150,16 +151,24 @@ void Draw_StretchPic (int x, int y, int w, int h, char *pic)
 		qglDisable (GL_ALPHA_TEST);
 
 	GL_Bind (gl->texnum);
+
+	qglGetTexParameteriv( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, &previousMagFilter );
+	qglTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
+
 	qglBegin (GL_QUADS);
-	qglTexCoord2f (gl->sl, gl->tl);
-	qglVertex2f (x, y);
-	qglTexCoord2f (gl->sh, gl->tl);
-	qglVertex2f (x+w, y);
-	qglTexCoord2f (gl->sh, gl->th);
-	qglVertex2f (x+w, y+h);
-	qglTexCoord2f (gl->sl, gl->th);
-	qglVertex2f (x, y+h);
+	{
+		qglTexCoord2f (gl->sl, gl->tl);
+		qglVertex2f (x, y);
+		qglTexCoord2f (gl->sh, gl->tl);
+		qglVertex2f (x+w, y);
+		qglTexCoord2f (gl->sh, gl->th);
+		qglVertex2f (x+w, y+h);
+		qglTexCoord2f (gl->sl, gl->th);
+		qglVertex2f (x, y+h);
+	}
 	qglEnd ();
+
+	qglTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, previousMagFilter );
 
 	if ( ( ( gl_config.renderer == GL_RENDERER_MCD ) || ( gl_config.renderer & GL_RENDERER_RENDITION ) ) && !gl->has_alpha)
 		qglEnable (GL_ALPHA_TEST);
