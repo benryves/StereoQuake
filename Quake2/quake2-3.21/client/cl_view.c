@@ -38,6 +38,7 @@ cvar_t		*cl_testblend;
 
 cvar_t		*cl_stats;
 
+cvar_t		*hud_scale;
 
 int			r_numdlights;
 dlight_t	r_dlights[MAX_DLIGHTS];
@@ -417,6 +418,9 @@ SCR_DrawCrosshair
 */
 void SCR_DrawCrosshair (void)
 {
+
+	int w, h;
+
 	if (!crosshair->value)
 		return;
 
@@ -429,8 +433,17 @@ void SCR_DrawCrosshair (void)
 	if (!crosshair_pic[0])
 		return;
 
-	re.DrawPic (scr_vrect.x + ((scr_vrect.width - crosshair_width)>>1)
-	, scr_vrect.y + ((scr_vrect.height - crosshair_height)>>1), crosshair_pic);
+	w = crosshair_width * hud_scale->value;
+	h = crosshair_height * hud_scale->value;
+
+	if (w < scr_vrect.width && h < scr_vrect.height) {
+		re.DrawStretchPic(
+			(int)(scr_vrect.x + scr_vrect.width - w - hud_scale->value) >> 1,
+			(int)(scr_vrect.y + scr_vrect.height - h - hud_scale->value) >> 1,
+			w, h, crosshair_pic
+		);
+	}
+
 }
 
 /*
@@ -588,4 +601,6 @@ void V_Init (void)
 	cl_testlights = Cvar_Get ("cl_testlights", "0", 0);
 
 	cl_stats = Cvar_Get ("cl_stats", "0", 0);
+
+	hud_scale = Cvar_Get ("hud_scale", "1", CVAR_ARCHIVE);
 }
