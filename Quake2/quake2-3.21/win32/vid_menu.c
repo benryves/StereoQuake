@@ -122,7 +122,7 @@ static void BrightnessCallback( void *s )
 static void StereoModeCallback( void *s )
 {
 	if ( s_current_menu_index == OPENGL_MENU ) {
-		s_stereo_mode[SOFTWARE_MENU].curvalue = s_stereo_mode[OPENGL_MENU].curvalue / 3;
+		s_stereo_mode[SOFTWARE_MENU].curvalue = !!s_stereo_mode[OPENGL_MENU].curvalue;
 	} else {
 		s_stereo_mode[OPENGL_MENU].curvalue = s_stereo_mode[SOFTWARE_MENU].curvalue * 3;
 	}
@@ -159,7 +159,7 @@ static void ApplyChanges( void *unused )
 	s_brightness_slider[!s_current_menu_index].curvalue = s_brightness_slider[s_current_menu_index].curvalue;
 	s_ref_list[!s_current_menu_index].curvalue = s_ref_list[s_current_menu_index].curvalue;
 	if ( s_current_menu_index == OPENGL_MENU ) {
-		s_stereo_mode[SOFTWARE_MENU].curvalue = s_stereo_mode[OPENGL_MENU].curvalue / 3;
+		s_stereo_mode[SOFTWARE_MENU].curvalue = !!s_stereo_mode[OPENGL_MENU].curvalue;
 	} else {
 		s_stereo_mode[OPENGL_MENU].curvalue = s_stereo_mode[SOFTWARE_MENU].curvalue * 3;
 	}
