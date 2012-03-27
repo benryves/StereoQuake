@@ -191,22 +191,35 @@ void Draw_StretchPicImplementation (int x, int y, int w, int h, image_t	*pic)
 	{
 		sv = (skip + v)*pic->height/h;
 		source = pic->pixels[0] + sv*pic->width;
-		if (w == pic->width)
+		if (w == pic->width && !pic->transparent)
 			memcpy (dest, source, w);
 		else
 		{
 			f = 0;
 			fstep = pic->width*0x10000/w;
-			for (u=0 ; u<w ; u+=4)
+			
+			if (pic->transparent)
 			{
-				dest[u] = source[f>>16];
-				f += fstep;
-				dest[u+1] = source[f>>16];
-				f += fstep;
-				dest[u+2] = source[f>>16];
-				f += fstep;
-				dest[u+3] = source[f>>16];
-				f += fstep;
+				byte p;
+				for (u=0 ; u<w ; ++u)
+				{
+					if ( (p = source[f>>16]) != TRANSPARENT_COLOR ) dest[u] = p;
+					f += fstep;
+				}
+			}
+			else
+			{
+				for (u=0 ; u<w ; u+=4)
+				{
+					dest[u] = source[f>>16];
+					f += fstep;
+					dest[u+1] = source[f>>16];
+					f += fstep;
+					dest[u+2] = source[f>>16];
+					f += fstep;
+					dest[u+3] = source[f>>16];
+					f += fstep;
+				}
 			}
 		}
 	}
