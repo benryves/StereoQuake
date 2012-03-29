@@ -147,7 +147,60 @@ smoothly scrolled off.
 */
 void Draw_StretchChar (int x, int y, int scale, int num)
 {
-	Draw_Char(x, y, num);
+	
+	byte			*dest;
+	byte			*source;
+	int				row, col;
+	int				rowc, colc;
+
+	num &= 255;
+
+	if (num == 32 || num == 32+128) {
+		return;
+	}
+
+	row = num>>4;
+	col = num&15;
+	source = draw_chars->pixels[0] + (row<<10) + (col<<3);
+
+	dest = vid.buffer + y*vid.rowbytes + x;
+
+	rowc = scale;
+	for ( row = y; row < y + scale * 8; ++row )
+	{
+	
+		colc = scale;
+		for ( col = x; col < x + scale * 8; ++col )
+		{
+			
+			if ( *source != TRANSPARENT_COLOR && col >= 0 && col < vid.width && row >= 0 && row < vid.height ) 
+			{
+				*dest = *source;
+			}
+
+			++dest;
+
+			if ( --colc == 0 )
+			{
+				++source;
+				colc = scale;
+			}
+		
+		}
+		
+		dest += vid.rowbytes - scale * 8;
+		
+		if ( --rowc == 0 )
+		{
+			source += 120;
+			rowc = scale;
+		}
+		else 
+		{
+			source -= 8;
+		}
+	}
+
 }
 
 /*
