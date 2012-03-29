@@ -532,7 +532,7 @@ VID_MenuDraw
 */
 void VID_MenuDraw (void)
 {
-	int w, h;
+	int w, h, scale;
 
 	if ( s_current_menu_index == 0 )
 		s_current_menu = &s_software_menu;
@@ -542,8 +542,9 @@ void VID_MenuDraw (void)
 	/*
 	** draw the banner
 	*/
+	scale = SCR_Scale ();
 	re.DrawGetPicSize( &w, &h, "m_banner_video" );
-	re.DrawPic( viddef.width / 2 - w / 2, viddef.height /2 - 110, "m_banner_video" );
+	re.DrawStretchPic( ( viddef.width - w * scale ) / 2, viddef.height / 2 - 110 * scale, w * scale, h * scale, "m_banner_video" );
 
 	/*
 	** move cursor to a reasonable starting position
