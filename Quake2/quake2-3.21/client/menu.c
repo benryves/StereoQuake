@@ -3957,10 +3957,10 @@ const char *M_Quit_Key (int key)
 
 void M_Quit_Draw (void)
 {
-	int		w, h;
-
+	int		w, h, scale;
+	scale = SCR_Scale ();
 	re.DrawGetPicSize (&w, &h, "quit");
-	re.DrawPic ( (viddef.width-w)/2, (viddef.height-h)/2, "quit");
+	re.DrawStretchPic ( (viddef.width-w*scale)/2, (viddef.height-h*scale)/2, w*scale, h*scale, "quit");
 }
 
 
