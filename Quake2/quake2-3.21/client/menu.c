@@ -329,6 +329,7 @@ void M_DrawCursor( int x, int y, int f )
 {
 	char	cursorname[80];
 	static qboolean cached;
+	int		w, h, scale;
 
 	if ( !cached )
 	{
@@ -344,7 +345,10 @@ void M_DrawCursor( int x, int y, int f )
 	}
 
 	Com_sprintf( cursorname, sizeof(cursorname), "m_cursor%d", f );
-	re.DrawPic( x, y, cursorname );
+
+	scale = SCR_Scale ();
+	re.DrawGetPicSize( &w, &h, cursorname );
+	re.DrawStretchPic( x, y, w * scale, h * scale, cursorname );
 }
 
 void M_DrawStretchTextBox (int x, int y, int width, int lines, int scale)
@@ -410,6 +414,8 @@ void M_Main_Draw (void)
 {
 	int i;
 	int w, h;
+	int w2, h2;
+	int scale;
 	int ystart;
 	int	xoffset;
 	int widest = -1;
@@ -425,6 +431,8 @@ void M_Main_Draw (void)
 		0
 	};
 
+	scale = SCR_Scale ();
+
 	for ( i = 0; names[i] != 0; i++ )
 	{
 		re.DrawGetPicSize( &w, &h, names[i] );
@@ -434,24 +442,29 @@ void M_Main_Draw (void)
 		totalheight += ( h + 12 );
 	}
 
-	ystart = ( viddef.height / 2 - 110 );
-	xoffset = ( viddef.width - widest + 70 ) / 2;
+	ystart = ( viddef.height / 2 - 110 * scale );
+	xoffset = ( viddef.width - ( widest + 70 * scale ) ) / 2;
 
 	for ( i = 0; names[i] != 0; i++ )
 	{
-		if ( i != m_main_cursor )
-			re.DrawPic( xoffset, ystart + i * 40 + 13, names[i] );
+		if ( i != m_main_cursor ) {
+			re.DrawGetPicSize( &w, &h, names[i] );
+			re.DrawStretchPic( xoffset, ystart + (i * 40 + 13) * scale, w * scale, h * scale, names[i] );
+		}
 	}
 	strcpy( litname, names[m_main_cursor] );
 	strcat( litname, "_sel" );
-	re.DrawPic( xoffset, ystart + m_main_cursor * 40 + 13, litname );
 
-	M_DrawCursor( xoffset - 25, ystart + m_main_cursor * 40 + 11, (int)(cls.realtime / 100)%NUM_CURSOR_FRAMES );
+	re.DrawGetPicSize( &w, &h, litname );
+	re.DrawStretchPic( xoffset, ystart + (m_main_cursor * 40 + 13) * scale, w * scale, h * scale, litname );
+
+	M_DrawCursor( xoffset - 25 * scale, ystart + (m_main_cursor * 40 + 11) * scale, (int)(cls.realtime / 100)%NUM_CURSOR_FRAMES );
 
 	re.DrawGetPicSize( &w, &h, "m_main_plaque" );
-	re.DrawPic( xoffset - 30 - w, ystart, "m_main_plaque" );
+	re.DrawStretchPic( xoffset - (30 + w) * scale, ystart, w * scale, h * scale, "m_main_plaque" );
 
-	re.DrawPic( xoffset - 30 - w, ystart + h + 5, "m_main_logo" );
+	re.DrawGetPicSize( &w2, &h2, "m_main_logo" );
+	re.DrawStretchPic( xoffset - (30 + w) * scale, ystart + (h + 5) * scale, w2 * scale, h2 * scale, "m_main_logo" );
 }
 
 
