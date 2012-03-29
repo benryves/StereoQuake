@@ -55,6 +55,20 @@ smoothly scrolled off.
 */
 void Draw_Char (int x, int y, int num)
 {
+	Draw_StretchChar (x, y, 1, num);
+}
+
+/*
+================
+Draw_StretchChar
+
+Draws one 8*8 graphics character at a certain scale with 0 being transparent.
+It can be clipped to the top of the screen to allow the console to be
+smoothly scrolled off.
+================
+*/
+void Draw_StretchChar (int x, int y, int scale, int num)
+{
 	int				row, col;
 	float			frow, fcol, size;
 
@@ -75,15 +89,17 @@ void Draw_Char (int x, int y, int num)
 
 	GL_Bind (draw_chars->texnum);
 
+	
+
 	qglBegin (GL_QUADS);
 	qglTexCoord2f (fcol, frow);
 	qglVertex2f (x, y);
 	qglTexCoord2f (fcol + size, frow);
-	qglVertex2f (x+8, y);
+	qglVertex2f (x+8*scale, y);
 	qglTexCoord2f (fcol + size, frow + size);
-	qglVertex2f (x+8, y+8);
+	qglVertex2f (x+8*scale, y+8*scale);
 	qglTexCoord2f (fcol, frow + size);
-	qglVertex2f (x, y+8);
+	qglVertex2f (x, y+8*scale);
 	qglEnd ();
 }
 

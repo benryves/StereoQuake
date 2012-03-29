@@ -42,10 +42,11 @@ Inv_DrawString
 */
 void Inv_DrawString (int x, int y, char *string)
 {
+	int scale = SCR_Scale ();
 	while (*string)
 	{
-		re.DrawChar (x, y, *string);
-		x+=8;
+		re.DrawStretchChar (x, y, scale, *string);
+		x+=8*scale;
 		string++;
 	}
 }
@@ -70,10 +71,12 @@ void CL_DrawInventory (void)
 	int		index[MAX_ITEMS];
 	char	string[1024];
 	int		x, y;
+	int		w, h;
 	char	binding[1024];
 	char	*bind;
 	int		selected;
 	int		top;
+	int		scale;
 
 	selected = cl.frame.playerstate.stats[STAT_SELECTED_ITEM];
 
@@ -90,6 +93,8 @@ void CL_DrawInventory (void)
 		}
 	}
 
+	scale = SCR_Scale ();
+
 	// determine scroll point
 	top = selected_num - DISPLAY_ITEMS/2;
 	if (num - top < DISPLAY_ITEMS)
@@ -97,19 +102,20 @@ void CL_DrawInventory (void)
 	if (top < 0)
 		top = 0;
 
-	x = (viddef.width-256)/2;
-	y = (viddef.height-240)/2;
+	x = (viddef.width-256*scale)/2;
+	y = (viddef.height-240*scale)/2;
 
 	// repaint everything next frame
 	SCR_DirtyScreen ();
 
-	re.DrawPic (x, y+8, "inventory");
+	re.DrawGetPicSize (&w, &h, "inventory" );
+	re.DrawStretchPic (x, y+8*scale, w*scale, h*scale, "inventory");
 
-	y += 24;
-	x += 24;
+	y += 24*scale;
+	x += 24*scale;
 	Inv_DrawString (x, y, "hotkey ### item");
-	Inv_DrawString (x, y+8, "------ --- ----");
-	y += 16;
+	Inv_DrawString (x, y+8*scale, "------ --- ----");
+	y += 16*scale;
 	for (i=top ; i<num && i < top+DISPLAY_ITEMS ; i++)
 	{
 		item = index[i];
@@ -130,10 +136,10 @@ void CL_DrawInventory (void)
 		else	// draw a blinky cursor by the selected item
 		{
 			if ( (int)(cls.realtime*10) & 1)
-				re.DrawChar (x-8, y, 15);
+				re.DrawStretchChar (x-8*scale, y, scale, 15);
 		}
 		Inv_DrawString (x, y, string);
-		y += 8;
+		y += 8*scale;
 	}
 
 

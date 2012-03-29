@@ -292,6 +292,8 @@ extern	cvar_t	*cl_timedemo;
 
 extern	cvar_t	*cl_vwep;
 
+int SCR_Scale (void);
+
 typedef struct
 {
 	int		key;				// so entities can reuse same entry

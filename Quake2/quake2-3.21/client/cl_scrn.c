@@ -59,6 +59,8 @@ cvar_t		*scr_graphscale;
 cvar_t		*scr_graphshift;
 cvar_t		*scr_drawall;
 
+cvar_t		*scr_scale;
+
 typedef struct
 {
 	int		x1, y1, x2, y2;
@@ -72,6 +74,13 @@ int			crosshair_width, crosshair_height;
 void SCR_TimeRefresh_f (void);
 void SCR_Loading_f (void);
 
+int SCR_Scale ( void )
+{
+	int scale = scr_scale->value;
+	if (scale < 1) scale = 1;
+	if (scale > 10) scale = 10;
+	return scale;
+}
 
 /*
 ===============================================================================
@@ -420,6 +429,7 @@ void SCR_Init (void)
 	scr_graphscale = Cvar_Get ("graphscale", "1", 0);
 	scr_graphshift = Cvar_Get ("graphshift", "0", 0);
 	scr_drawall = Cvar_Get ("scr_drawall", "0", 0);
+	scr_scale = Cvar_Get ("scr_scale", "1", CVAR_ARCHIVE);
 
 //
 // register our commands
@@ -464,7 +474,11 @@ void SCR_DrawPause (void)
 		return;
 
 	re.DrawGetPicSize (&w, &h, "pause");
-	re.DrawPic ((viddef.width-w)/2, viddef.height/2 + 8, "pause");
+	
+	w *= SCR_Scale();
+	h *= SCR_Scale();
+
+	re.DrawStretchPic ((viddef.width-w)/2, viddef.height/2 + 8, w, h, "pause");
 }
 
 /*
@@ -481,7 +495,11 @@ void SCR_DrawLoading (void)
 
 	scr_draw_loading = false;
 	re.DrawGetPicSize (&w, &h, "loading");
-	re.DrawPic ((viddef.width-w)/2, (viddef.height-h)/2, "loading");
+
+	w *= SCR_Scale();
+	h *= SCR_Scale();
+
+	re.DrawStretchPic ((viddef.width-w)/2, (viddef.height-h)/2, w, h, "loading");
 }
 
 //=============================================================================
@@ -872,6 +890,9 @@ void SCR_DrawField (int x, int y, int color, int width, int value)
 	char	num[16], *ptr;
 	int		l;
 	int		frame;
+	int		scale,w,h;
+
+	scale = SCR_Scale();
 
 	if (width < 1)
 		return;
@@ -881,13 +902,13 @@ void SCR_DrawField (int x, int y, int color, int width, int value)
 		width = 5;
 
 	SCR_AddDirtyPoint (x, y);
-	SCR_AddDirtyPoint (x+width*CHAR_WIDTH+2, y+23);
+	SCR_AddDirtyPoint (x+(width*CHAR_WIDTH+2)*scale, y+23*scale);
 
 	Com_sprintf (num, sizeof(num), "%i", value);
 	l = strlen(num);
 	if (l > width)
 		l = width;
-	x += 2 + CHAR_WIDTH*(width - l);
+	x += 2 + CHAR_WIDTH*(width - l)*scale;
 
 	ptr = num;
 	while (*ptr && l)
@@ -897,8 +918,9 @@ void SCR_DrawField (int x, int y, int color, int width, int value)
 		else
 			frame = *ptr -'0';
 
-		re.DrawPic (x,y,sb_nums[color][frame]);
-		x += CHAR_WIDTH;
+		re.DrawGetPicSize (&w,&h,sb_nums[color][frame]);
+		re.DrawStretchPic (x,y,w*scale,h*scale,sb_nums[color][frame]);
+		x += CHAR_WIDTH*scale;
 		ptr++;
 		l--;
 	}
@@ -941,11 +963,13 @@ SCR_ExecuteLayoutString
 void SCR_ExecuteLayoutString (char *s)
 {
 	int		x, y;
+	int		w, h;
 	int		value;
 	char	*token;
 	int		width;
 	int		index;
 	clientinfo_t	*ci;
+	int		scale;
 
 	if (cls.state != ca_active || !cl.refresh_prepped)
 		return;
@@ -956,6 +980,8 @@ void SCR_ExecuteLayoutString (char *s)
 	x = 0;
 	y = 0;
 	width = 3;
+	scale = scr_scale->value;
+	if (scale < 1) scale = 1;
 
 	while (s)
 	{
@@ -963,38 +989,38 @@ void SCR_ExecuteLayoutString (char *s)
 		if (!strcmp(token, "xl"))
 		{
 			token = COM_Parse (&s);
-			x = atoi(token);
+			x = atoi(token) * scale;
 			continue;
 		}
 		if (!strcmp(token, "xr"))
 		{
 			token = COM_Parse (&s);
-			x = viddef.width + atoi(token);
+			x = viddef.width + atoi(token) * scale;
 			continue;
 		}
 		if (!strcmp(token, "xv"))
 		{
 			token = COM_Parse (&s);
-			x = viddef.width/2 - 160 + atoi(token);
+			x = viddef.width/2 + (atoi(token) - 160) * scale;
 			continue;
 		}
 
 		if (!strcmp(token, "yt"))
 		{
 			token = COM_Parse (&s);
-			y = atoi(token);
+			y = atoi(token) * scale;
 			continue;
 		}
 		if (!strcmp(token, "yb"))
 		{
 			token = COM_Parse (&s);
-			y = viddef.height + atoi(token);
+			y = viddef.height + atoi(token) * scale;
 			continue;
 		}
 		if (!strcmp(token, "yv"))
 		{
 			token = COM_Parse (&s);
-			y = viddef.height/2 - 120 + atoi(token);
+			y = viddef.height/2 + (atoi(token) - 120) * scale;
 			continue;
 		}
 
@@ -1007,8 +1033,9 @@ void SCR_ExecuteLayoutString (char *s)
 			if (cl.configstrings[CS_IMAGES+value])
 			{
 				SCR_AddDirtyPoint (x, y);
-				SCR_AddDirtyPoint (x+23, y+23);
-				re.DrawPic (x, y, cl.configstrings[CS_IMAGES+value]);
+				SCR_AddDirtyPoint (x+23*scale, y+23*scale);
+				re.DrawGetPicSize (&w, &h, cl.configstrings[CS_IMAGES+value]);
+				re.DrawStretchPic (x, y, w*scale, h*scale, cl.configstrings[CS_IMAGES+value]);
 			}
 			continue;
 		}
@@ -1018,11 +1045,11 @@ void SCR_ExecuteLayoutString (char *s)
 			int		score, ping, time;
 
 			token = COM_Parse (&s);
-			x = viddef.width/2 - 160 + atoi(token);
+			x = viddef.width/2 + (atoi(token) - 160) * scale;
 			token = COM_Parse (&s);
-			y = viddef.height/2 - 120 + atoi(token);
+			y = viddef.height/2 + (atoi(token) - 120) * scale;
 			SCR_AddDirtyPoint (x, y);
-			SCR_AddDirtyPoint (x+159, y+31);
+			SCR_AddDirtyPoint (x+159*scale, y+31*scale);
 
 			token = COM_Parse (&s);
 			value = atoi(token);
@@ -1090,8 +1117,9 @@ void SCR_ExecuteLayoutString (char *s)
 		{	// draw a pic from a name
 			token = COM_Parse (&s);
 			SCR_AddDirtyPoint (x, y);
-			SCR_AddDirtyPoint (x+23, y+23);
-			re.DrawPic (x, y, token);
+			SCR_AddDirtyPoint (x+23*scale, y+23*scale);
+			re.DrawGetPicSize(&w, &h, token);
+			re.DrawStretchPic (x, y, w * scale, h * scale, token);
 			continue;
 		}
 
@@ -1118,8 +1146,10 @@ void SCR_ExecuteLayoutString (char *s)
 			else
 				color = 1;
 
-			if (cl.frame.playerstate.stats[STAT_FLASHES] & 1)
-				re.DrawPic (x, y, "field_3");
+			if (cl.frame.playerstate.stats[STAT_FLASHES] & 1) {
+				re.DrawGetPicSize(&w, &h, "field_3");
+				re.DrawStretchPic (x, y, w * scale, h * scale, "field_3");
+			}
 
 			SCR_DrawField (x, y, color, width, value);
 			continue;
@@ -1138,8 +1168,10 @@ void SCR_ExecuteLayoutString (char *s)
 			else
 				continue;	// negative number = don't show
 
-			if (cl.frame.playerstate.stats[STAT_FLASHES] & 4)
-				re.DrawPic (x, y, "field_3");
+			if (cl.frame.playerstate.stats[STAT_FLASHES] & 4) {
+				re.DrawGetPicSize(&w, &h, "field_3");
+				re.DrawStretchPic (x, y, w * scale, h * scale, "field_3");
+			}
 
 			SCR_DrawField (x, y, color, width, value);
 			continue;
@@ -1156,8 +1188,10 @@ void SCR_ExecuteLayoutString (char *s)
 
 			color = 0;	// green
 
-			if (cl.frame.playerstate.stats[STAT_FLASHES] & 2)
-				re.DrawPic (x, y, "field_3");
+			if (cl.frame.playerstate.stats[STAT_FLASHES] & 2) {
+				re.DrawGetPicSize(&w, &h, "field_3");
+				re.DrawStretchPic (x, y, w * scale, h * scale, "field_3");
+			}
 
 			SCR_DrawField (x, y, color, width, value);
 			continue;

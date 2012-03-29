@@ -137,6 +137,20 @@ void Draw_Char (int x, int y, int num)
 }
 
 /*
+================
+Draw_StretchChar
+
+Draws one 8*8 graphics character scaled up by a certain amount.
+It can be clipped to the top of the screen to allow the console to be
+smoothly scrolled off.
+================
+*/
+void Draw_StretchChar (int x, int y, int scale, int num)
+{
+	Draw_Char(x, y, num);
+}
+
+/*
 =============
 Draw_GetPicSize
 =============

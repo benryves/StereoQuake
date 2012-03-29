@@ -793,6 +793,7 @@ void    Draw_Pic (int x, int y, char *name);
 void    Draw_StretchPic (int x, int y, int w, int h, char *name);
 void    Draw_StretchRaw (int x, int y, int w, int h, int cols, int rows, byte *data);
 void    Draw_Char (int x, int y, int c);
+void    Draw_StretchChar (int x, int y, int scale, int c);
 void    Draw_TileClear (int x, int y, int w, int h, char *name);
 void    Draw_Fill (int x, int y, int w, int h, int c);
 void    Draw_FadeScreen (void);

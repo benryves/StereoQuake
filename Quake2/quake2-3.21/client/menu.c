@@ -74,10 +74,15 @@ int		m_menudepth;
 
 static void M_Banner( char *name )
 {
-	int w, h;
+	int w, h, scale;
 
 	re.DrawGetPicSize (&w, &h, name );
-	re.DrawPic( viddef.width / 2 - w / 2, viddef.height / 2 - 110, name );
+	scale = SCR_Scale ();
+	
+	w *= scale;
+	h *= scale;
+
+	re.DrawStretchPic( viddef.width / 2 - w / 2, viddef.height / 2 - 110 * scale, w, h, name );
 }
 
 void M_PushMenu ( void (*draw) (void), const char *(*key) (int k) )
@@ -270,24 +275,38 @@ void M_DrawCharacter (int cx, int cy, int num)
 {
 	re.DrawChar ( cx + ((viddef.width - 320)>>1), cy + ((viddef.height - 240)>>1), num);
 }
+/*
+================
+M_DrawStretchCharacter
 
+Draws one solid graphics character scaled by a certain amount.
+cx and cy are in 320*240 coordinates, and will be centered on
+higher res screens.
+================
+*/
+void M_DrawStretchCharacter (int cx, int cy, int scale, int num)
+{
+	re.DrawStretchChar ( cx + ((viddef.width - 320 * scale)>>1), cy + ((viddef.height - 240 * scale)>>1), scale, num);	
+}
 void M_Print (int cx, int cy, char *str)
 {
+	int scale = SCR_Scale ();
 	while (*str)
 	{
-		M_DrawCharacter (cx, cy, (*str)+128);
+		M_DrawStretchCharacter (cx, cy, scale, (*str)+128);
 		str++;
-		cx += 8;
+		cx += 8 * scale;
 	}
 }
 
 void M_PrintWhite (int cx, int cy, char *str)
 {
+	int scale = SCR_Scale ();
 	while (*str)
 	{
-		M_DrawCharacter (cx, cy, *str);
+		M_DrawStretchCharacter (cx, cy, scale, *str);
 		str++;
-		cx += 8;
+		cx += 8 * scale;
 	}
 }
 
@@ -328,7 +347,7 @@ void M_DrawCursor( int x, int y, int f )
 	re.DrawPic( x, y, cursorname );
 }
 
-void M_DrawTextBox (int x, int y, int width, int lines)
+void M_DrawStretchTextBox (int x, int y, int width, int lines, int scale)
 {
 	int		cx, cy;
 	int		n;
@@ -336,39 +355,44 @@ void M_DrawTextBox (int x, int y, int width, int lines)
 	// draw left side
 	cx = x;
 	cy = y;
-	M_DrawCharacter (cx, cy, 1);
+	M_DrawStretchCharacter (cx, cy, scale, 1);
 	for (n = 0; n < lines; n++)
 	{
-		cy += 8;
-		M_DrawCharacter (cx, cy, 4);
+		cy += 8*scale;
+		M_DrawStretchCharacter (cx, cy, scale, 4);
 	}
-	M_DrawCharacter (cx, cy+8, 7);
+	M_DrawStretchCharacter (cx, cy+8*scale, scale, 7);
 
 	// draw middle
-	cx += 8;
+	cx += 8*scale;
 	while (width > 0)
 	{
 		cy = y;
-		M_DrawCharacter (cx, cy, 2);
+		M_DrawStretchCharacter (cx, cy, scale, 2);
 		for (n = 0; n < lines; n++)
 		{
-			cy += 8;
-			M_DrawCharacter (cx, cy, 5);
+			cy += 8*scale;
+			M_DrawStretchCharacter (cx, cy, scale, 5);
 		}
-		M_DrawCharacter (cx, cy+8, 8);
+		M_DrawStretchCharacter (cx, cy+8*scale, scale, 8);
 		width -= 1;
-		cx += 8;
+		cx += 8*scale;
 	}
 
 	// draw right side
 	cy = y;
-	M_DrawCharacter (cx, cy, 3);
+	M_DrawStretchCharacter (cx, cy, scale, 3);
 	for (n = 0; n < lines; n++)
 	{
-		cy += 8;
-		M_DrawCharacter (cx, cy, 6);
+		cy += 8*scale;
+		M_DrawStretchCharacter (cx, cy, scale, 6);
 	}
-	M_DrawCharacter (cx, cy+8, 9);
+	M_DrawStretchCharacter (cx, cy+8*scale, scale, 9);
+}
+
+void M_DrawTextBox (int x, int y, int width, int lines)
+{
+	M_DrawStretchTextBox (x, y, width, lines, 1);
 }
 
 		
@@ -1160,6 +1184,7 @@ static void ConsoleFunc( void *unused )
 
 static void UpdateSoundQualityFunc( void *unused )
 {
+	int scale = SCR_Scale ();
 	if ( s_options_quality_list.curvalue )
 	{
 		Cvar_SetValue( "s_khz", 22 );
@@ -1173,10 +1198,10 @@ static void UpdateSoundQualityFunc( void *unused )
 	
 	Cvar_SetValue( "s_primary", s_options_compatibility_list.curvalue );
 
-	M_DrawTextBox( 8, 120 - 48, 36, 3 );
-	M_Print( 16 + 16, 120 - 48 + 8,  "Restarting the sound system. This" );
-	M_Print( 16 + 16, 120 - 48 + 16, "could take up to a minute, so" );
-	M_Print( 16 + 16, 120 - 48 + 24, "please be patient." );
+	M_DrawStretchTextBox( 8, 120 - 48, 36, 3, scale );
+	M_Print( 16 + 16 * scale, 120 - 48 + 8 * scale,  "Restarting the sound system. This" );
+	M_Print( 16 + 16 * scale, 120 - 48 + 16 * scale, "could take up to a minute, so" );
+	M_Print( 16 + 16 * scale, 120 - 48 + 24 * scale, "please be patient." );
 
 	// the text box won't show up unless we do a buffer swap
 	re.EndFrame();
@@ -2270,15 +2295,16 @@ void NullCursorDraw( void *self )
 void SearchLocalGames( void )
 {
 	int		i;
+	int		scale = SCR_Scale ();
 
 	m_num_servers = 0;
 	for (i=0 ; i<MAX_LOCAL_SERVERS ; i++)
 		strcpy (local_server_names[i], NO_SERVER_STRING);
 
-	M_DrawTextBox( 8, 120 - 48, 36, 3 );
-	M_Print( 16 + 16, 120 - 48 + 8,  "Searching for local servers, this" );
-	M_Print( 16 + 16, 120 - 48 + 16, "could take up to a minute, so" );
-	M_Print( 16 + 16, 120 - 48 + 24, "please be patient." );
+	M_DrawStretchTextBox( 8, 120 - 48, 36, 3, scale );
+	M_Print( 16 + 16 * scale, 120 - 48 + 8 * scale,  "Searching for local servers, this" );
+	M_Print( 16 + 16 * scale, 120 - 48 + 16 * scale, "could take up to a minute, so" );
+	M_Print( 16 + 16 * scale, 120 - 48 + 24 * scale, "please be patient." );
 
 	// the text box won't show up unless we do a buffer swap
 	re.EndFrame();
