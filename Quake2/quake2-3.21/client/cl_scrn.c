@@ -850,8 +850,10 @@ void DrawHUDString (char *string, int x, int y, int centerwidth, int xor)
 	char	line[1024];
 	int		width;
 	int		i;
+	int		scale;
 
 	margin = x;
+	scale = SCR_Scale ();
 
 	while (*string)
 	{
@@ -862,19 +864,19 @@ void DrawHUDString (char *string, int x, int y, int centerwidth, int xor)
 		line[width] = 0;
 
 		if (centerwidth)
-			x = margin + (centerwidth - width*8)/2;
+			x = margin + ((centerwidth - width*8) * scale)/2;
 		else
 			x = margin;
 		for (i=0 ; i<width ; i++)
 		{
-			re.DrawChar (x, y, line[i]^xor);
-			x += 8;
+			re.DrawStretchChar (x, y, scale, line[i]^xor);
+			x += 8*scale;
 		}
 		if (*string)
 		{
 			string++;	// skip the \n
 			x = margin;
-			y += 8;
+			y += 8*scale;
 		}
 	}
 }
@@ -1066,11 +1068,11 @@ void SCR_ExecuteLayoutString (char *s)
 			token = COM_Parse (&s);
 			time = atoi(token);
 
-			DrawAltString (x+32, y, ci->name);
-			DrawString (x+32, y+8,  "Score: ");
-			DrawAltString (x+32+7*8, y+8,  va("%i", score));
-			DrawString (x+32, y+16, va("Ping:  %i", ping));
-			DrawString (x+32, y+24, va("Time:  %i", time));
+			DrawAltString (x+32*scale, y, ci->name);
+			DrawString (x+32*scale, y+8*scale,  "Score: ");
+			DrawAltString (x+(32+7*8)*scale, y+8*scale,  va("%i", score));
+			DrawString (x+32*scale, y+16*scale, va("Ping:  %i", ping));
+			DrawString (x+32*scale, y+24*scale, va("Time:  %i", time));
 
 			if (!ci->icon)
 				ci = &cl.baseclientinfo;

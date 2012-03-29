@@ -34,20 +34,22 @@ extern	int		key_linepos;
 
 void DrawString (int x, int y, char *s)
 {
+	int scale = SCR_Scale ();
 	while (*s)
 	{
-		re.DrawChar (x, y, *s);
-		x+=8;
+		re.DrawStretchChar (x, y, scale, *s);
+		x+=8*scale;
 		s++;
 	}
 }
 
 void DrawAltString (int x, int y, char *s)
 {
+	int scale = SCR_Scale ();
 	while (*s)
 	{
-		re.DrawChar (x, y, *s ^ 0x80);
-		x+=8;
+		re.DrawStretchChar (x, y, scale, *s ^ 0x80);
+		x+=8*scale;
 		s++;
 	}
 }
