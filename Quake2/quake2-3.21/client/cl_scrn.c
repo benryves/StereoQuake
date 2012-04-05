@@ -76,9 +76,28 @@ void SCR_Loading_f (void);
 
 int SCR_Scale ( void )
 {
-	int scale = scr_scale->value;
-	if (scale < 1) scale = 1;
-	if (scale > 10) scale = 10;
+
+	int scale_x, scale_y, scale;
+
+	scale = scr_scale->value;
+	if (scale == 1) {
+		return scale;
+	} else if (scale < 0) {
+		scale = 0;
+	}
+	
+	scale_x = abs(viddef.width) / 320;
+	scale_y = abs(viddef.height) / 240;
+
+	if (scale_x > scale_y) {
+		scale_x = scale_y;
+	}
+
+	if (scale == 0 || (scale_x > 0 && scale_x < scale))
+	{
+		scale = scale_x;
+	}
+
 	return scale;
 }
 
@@ -429,7 +448,7 @@ void SCR_Init (void)
 	scr_graphscale = Cvar_Get ("graphscale", "1", 0);
 	scr_graphshift = Cvar_Get ("graphshift", "0", 0);
 	scr_drawall = Cvar_Get ("scr_drawall", "0", 0);
-	scr_scale = Cvar_Get ("scr_scale", "1", CVAR_ARCHIVE);
+	scr_scale = Cvar_Get ("scr_scale", "0", CVAR_ARCHIVE);
 
 //
 // register our commands
