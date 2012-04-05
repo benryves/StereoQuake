@@ -443,7 +443,7 @@ void M_Main_Draw (void)
 	}
 
 	ystart = ( viddef.height / 2 - 110 * scale );
-	xoffset = ( viddef.width - ( widest + 70 * scale ) ) / 2;
+	xoffset = ( viddef.width - ( widest - 70 ) * scale ) / 2;
 
 	for ( i = 0; names[i] != 0; i++ )
 	{
