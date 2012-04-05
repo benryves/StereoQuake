@@ -1001,8 +1001,7 @@ void SCR_ExecuteLayoutString (char *s)
 	x = 0;
 	y = 0;
 	width = 3;
-	scale = scr_scale->value;
-	if (scale < 1) scale = 1;
+	scale = SCR_Scale ();
 
 	while (s)
 	{
