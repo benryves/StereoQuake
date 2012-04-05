@@ -3803,13 +3803,16 @@ void PlayerConfig_MenuDraw( void )
 	extern float CalcFov( float fov_x, float w, float h );
 	refdef_t refdef;
 	char scratch[MAX_QPATH];
+	int scale, w, h;
+
+	scale = SCR_Scale( );
 
 	memset( &refdef, 0, sizeof( refdef ) );
 
-	refdef.x = viddef.width / 2;
-	refdef.y = viddef.height / 2 - 72;
-	refdef.width = 144;
-	refdef.height = 168;
+	refdef.x = viddef.width / 2 + 4 * scale;
+	refdef.y = viddef.height / 2 - 72 * scale;
+	refdef.width = 144 * scale;
+	refdef.height = 168 * scale;
 	refdef.fov_x = 40;
 	refdef.fov_y = CalcFov( refdef.fov_x, refdef.width, refdef.height );
 	refdef.time = cls.realtime*0.001;
@@ -3834,9 +3837,7 @@ void PlayerConfig_MenuDraw( void )
 		entity.frame = 0;
 		entity.oldframe = 0;
 		entity.backlerp = 0.0;
-		entity.angles[1] = yaw++;
-		if ( ++yaw > 360 )
-			yaw -= 360;
+		entity.angles[1] = (int)(refdef.time * 90) % 360;
 
 		refdef.areabits = 0;
 		refdef.num_entities = 1;
@@ -3846,15 +3847,18 @@ void PlayerConfig_MenuDraw( void )
 
 		Menu_Draw( &s_player_config_menu );
 
-		M_DrawTextBox( ( refdef.x ) * ( 320.0F / viddef.width ) - 8, ( viddef.height / 2 ) * ( 240.0F / viddef.height) - 77, refdef.width / 8, refdef.height / 8 );
-		refdef.height += 4;
+		M_DrawStretchTextBox ( refdef.x - 8 * scale - ((viddef.width - 320 * scale)>>1), refdef.y - 8 * scale - ((viddef.height - 240 * scale)>>1), refdef.width / 8 / scale, refdef.height / 8 / scale, scale);
+		refdef.y -= 2 * scale;
+		refdef.height += 2 * scale;
 
 		re.RenderFrame( &refdef );
 
 		Com_sprintf( scratch, sizeof( scratch ), "/players/%s/%s_i.pcx", 
 			s_pmi[s_player_model_box.curvalue].directory,
 			s_pmi[s_player_model_box.curvalue].skindisplaynames[s_player_skin_box.curvalue] );
-		re.DrawPic( s_player_config_menu.x - 40, refdef.y, scratch );
+
+		re.DrawGetPicSize( &w, &h, scratch );
+		re.DrawStretchPic( (s_player_config_menu.x - 40 - viddef.width / 2) * scale + viddef.width / 2, refdef.y, w * scale, h * scale, scratch );
 	}
 }
 
