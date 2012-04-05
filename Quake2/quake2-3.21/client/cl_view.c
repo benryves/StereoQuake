@@ -548,6 +548,18 @@ void V_RenderView( float stereo_separation )
 		CL_CalcViewValues();
 		VectorScale( cl.v_right, stereo_separation, tmp );
 		VectorAdd( cl.refdef.vieworg, tmp, cl.refdef.vieworg );
+		
+		cl.refdef.vieworg[0] += 1.0/16;
+		cl.refdef.vieworg[1] += 1.0/16;
+		cl.refdef.vieworg[2] += 1.0/16;
+
+		cl.refdef.x = scr_vrect.x;
+		cl.refdef.y = scr_vrect.y;
+		cl.refdef.width = scr_vrect.width;
+		cl.refdef.height = scr_vrect.height;
+		cl.refdef.fov_y = CalcFov (cl.refdef.fov_x, cl.refdef.width, cl.refdef.height);
+		cl.refdef.time = cl.time*0.001;
+
 	}
 
 	re.RenderFrame (&cl.refdef);
