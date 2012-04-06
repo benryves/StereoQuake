@@ -507,6 +507,9 @@ void Con_DrawNotify (void)
 	int		time;
 	char	*s;
 	int		skip;
+	int		scale;
+
+	scale = SCR_Scale ();
 
 	v = 0;
 	for (i= con.current-NUM_CON_TIMES+1 ; i<=con.current ; i++)
@@ -522,7 +525,7 @@ void Con_DrawNotify (void)
 		text = con.text + (i % con.totallines)*con.linewidth;
 		
 		for (x = 0 ; x < con.linewidth ; x++)
-			re.DrawChar ( (x+1)<<3, v, text[x]);
+			re.DrawStretchChar ( ((x+1)<<3) * scale, v * scale, scale, text[x]);
 
 		v += 8;
 	}
@@ -532,12 +535,12 @@ void Con_DrawNotify (void)
 	{
 		if (chat_team)
 		{
-			DrawString (8, v, "say_team:");
+			DrawString (8 * scale, v * scale, "say_team:");
 			skip = 11;
 		}
 		else
 		{
-			DrawString (8, v, "say:");
+			DrawString (8 * scale, v * scale, "say:");
 			skip = 5;
 		}
 
@@ -547,10 +550,10 @@ void Con_DrawNotify (void)
 		x = 0;
 		while(s[x])
 		{
-			re.DrawChar ( (x+skip)<<3, v, s[x]);
+			re.DrawStretchChar ( ((x+skip)<<3) * scale, v * scale, scale, s[x]);
 			x++;
 		}
-		re.DrawChar ( (x+skip)<<3, v, 10+((cls.realtime>>8)&1));
+		re.DrawStretchChar ( ((x+skip)<<3) * scale, v * scale, scale, 10+((cls.realtime>>8)&1));
 		v += 8;
 	}
 	
