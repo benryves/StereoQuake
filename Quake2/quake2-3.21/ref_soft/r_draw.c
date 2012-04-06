@@ -490,6 +490,13 @@ void Draw_Fill (int x, int y, int w, int h, int c)
 		h += y;
 		y = 0;
 	}
+
+	if ((abs(vid.rowbytes) / vid.width) > 1)
+	{
+		y /= 2;
+		h /= 2;
+	}
+
 	if (w < 0 || h < 0)
 		return;
 	dest = vid.buffer + y*vid.rowbytes + x;
