@@ -1097,7 +1097,8 @@ void SCR_ExecuteLayoutString (char *s)
 
 			if (!ci->icon)
 				ci = &cl.baseclientinfo;
-			re.DrawPic (x, y, ci->iconname);
+			re.DrawGetPicSize (&w, &h, ci->iconname);
+			re.DrawStretchPic (x, y, w * scale, h * scale, ci->iconname);
 			continue;
 		}
 
