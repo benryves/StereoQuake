@@ -540,6 +540,10 @@ should be skipped
 */
 qboolean SCR_DrawCinematic (void)
 {
+
+	float aspect;
+	int x, y, w, h;
+
 	if (cl.cinematictime <= 0)
 	{
 		return false;
@@ -561,7 +565,24 @@ qboolean SCR_DrawCinematic (void)
 	if (!cin.pic)
 		return true;
 
-	re.DrawStretchRaw (0, 0, viddef.width, viddef.height,
+	aspect = (float)cin.width / (float)cin.height;
+	if (aspect > (float)viddef.width / (float)viddef.height)
+	{
+		w = viddef.width;
+		h = (int)(w / aspect);
+		x = 0;
+		y = (viddef.height - h) / 2;
+	}
+	else
+	{
+		h = viddef.height;
+		w = (int)(h * aspect);
+		y = 0;
+		x = (viddef.width - w) / 2;
+	}
+
+	re.DrawFill (0,0,viddef.width, viddef.height, 0);
+	re.DrawStretchRaw (x, y, w, h,
 		cin.width, cin.height, cin.pic);
 
 	return true;
