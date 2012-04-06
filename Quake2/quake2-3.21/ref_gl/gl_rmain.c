@@ -141,6 +141,8 @@ cvar_t	*cl_stereo_separation;
 cvar_t	*cl_stereo_anaglyph_colors;
 cvar_t	*cl_stereo_convergence;
 
+cvar_t	*scr_viewsize;
+
 /*
 =================
 R_CullBox
@@ -419,6 +421,7 @@ void GL_DrawParticles( int num_particles, const particle_t particles[], const un
 	vec3_t			up, right;
 	float			scale;
 	byte			color[4];
+	float			viewsize;
 
 	GL_Bind(r_particletexture->texnum);
 	qglDepthMask( GL_FALSE );		// no z buffering
@@ -428,6 +431,8 @@ void GL_DrawParticles( int num_particles, const particle_t particles[], const un
 
 	VectorScale (vup, 1.5, up);
 	VectorScale (vright, 1.5, right);
+
+	viewsize = scr_viewsize->value * 0.01f;
 
 	for ( p = particles, i=0 ; i < num_particles ; i++,p++)
 	{
@@ -440,6 +445,8 @@ void GL_DrawParticles( int num_particles, const particle_t particles[], const un
 			scale = 1;
 		else
 			scale = 1 + scale * 0.004;
+
+		scale *= viewsize;
 
 		*(int *)color = colortable[p->color];
 		color[3] = p->alpha*255;
@@ -479,12 +486,15 @@ void R_DrawParticles (void)
 		int i;
 		unsigned char color[4];
 		const particle_t *p;
+		float viewsize;
+
+		viewsize = scr_viewsize->value * 0.01f;
 
 		qglDepthMask( GL_FALSE );
 		qglEnable( GL_BLEND );
 		qglDisable( GL_TEXTURE_2D );
 
-		qglPointSize( gl_particle_size->value );
+		qglPointSize( gl_particle_size->value * viewsize );
 
 		qglBegin( GL_POINTS );
 		for ( i = 0, p = r_newrefdef.particles; i < r_newrefdef.num_particles; i++, p++ )
@@ -1187,6 +1197,8 @@ void R_Register( void )
 	cl_stereo_separation = ri.Cvar_Get( "cl_stereo_separation", "-0.4", CVAR_ARCHIVE );
 	cl_stereo_anaglyph_colors = ri.Cvar_Get( "cl_stereo_anaglyph_colors", "rc", CVAR_ARCHIVE );
 	cl_stereo_convergence = ri.Cvar_Get( "cl_stereo_convergence", "1", CVAR_ARCHIVE );
+
+	scr_viewsize = ri.Cvar_Get( "viewsize", "100", CVAR_ARCHIVE );
 
 	ri.Cmd_AddCommand( "imagelist", GL_ImageList_f );
 	ri.Cmd_AddCommand( "screenshot", GL_ScreenShot_f );
