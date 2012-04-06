@@ -283,6 +283,9 @@ void SCR_DrawCenterString (void)
 	int		j;
 	int		x, y;
 	int		remaining;
+	int		scale;
+
+	scale = SCR_Scale ();
 
 // the finale prints the characters one at a time
 	remaining = 9999;
@@ -293,7 +296,7 @@ void SCR_DrawCenterString (void)
 	if (scr_center_lines <= 4)
 		y = viddef.height*0.35;
 	else
-		y = 48;
+		y = 48*scale;
 
 	do	
 	{
@@ -301,17 +304,17 @@ void SCR_DrawCenterString (void)
 		for (l=0 ; l<40 ; l++)
 			if (start[l] == '\n' || !start[l])
 				break;
-		x = (viddef.width - l*8)/2;
+		x = (viddef.width - l*8*scale)/2;
 		SCR_AddDirtyPoint (x, y);
-		for (j=0 ; j<l ; j++, x+=8)
+		for (j=0 ; j<l ; j++, x+=8*scale)
 		{
-			re.DrawChar (x, y, start[j]);	
+			re.DrawStretchChar (x, y, scale, start[j]);	
 			if (!remaining--)
 				return;
 		}
-		SCR_AddDirtyPoint (x, y+8);
+		SCR_AddDirtyPoint (x, y+8*scale);
 			
-		y += 8;
+		y += 8 * scale;
 
 		while (*start && *start != '\n')
 			start++;
