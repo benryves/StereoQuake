@@ -3851,6 +3851,7 @@ void PlayerConfig_MenuDraw( void )
 		refdef.y -= 2 * scale;
 		refdef.height += 2 * scale;
 
+		re.BeginFrame( 0 );
 		re.RenderFrame( &refdef );
 
 		Com_sprintf( scratch, sizeof( scratch ), "/players/%s/%s_i.pcx", 
