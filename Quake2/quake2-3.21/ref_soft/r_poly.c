@@ -612,6 +612,12 @@ void R_PolygonDrawSpans(espan_t *pspan, int iswater )
 
 	do
 	{
+
+		if (pspan->u < 0)
+			pspan->u = 0;
+		if (pspan->u > vid.width) 
+			pspan->u = vid.width;
+
 		s_spanletvars.pdest   = (byte *)d_viewbuffer + ( d_scantable[pspan->v] /*r_screenwidth * pspan->v*/) + pspan->u;
 		s_spanletvars.pz      = d_pzbuffer + (d_zwidth * pspan->v) + pspan->u;
 		s_spanletvars.u       = pspan->u;
