@@ -1056,7 +1056,7 @@ void SCR_ExecuteLayoutString (char *s)
 			if (cl.configstrings[CS_IMAGES+value])
 			{
 				SCR_AddDirtyPoint (x, y);
-				SCR_AddDirtyPoint (x+23*scale, y+23*scale);
+				SCR_AddDirtyPoint (x+w*scale, y+h*scale);
 				re.DrawGetPicSize (&w, &h, cl.configstrings[CS_IMAGES+value]);
 				re.DrawStretchPic (x, y, w*scale, h*scale, cl.configstrings[CS_IMAGES+value]);
 			}
@@ -1112,7 +1112,7 @@ void SCR_ExecuteLayoutString (char *s)
 			token = COM_Parse (&s);
 			y = viddef.height/2 - 120 + atoi(token);
 			SCR_AddDirtyPoint (x, y);
-			SCR_AddDirtyPoint (x+159, y+31);
+			SCR_AddDirtyPoint (x+159*scale, y+31*scale);
 
 			token = COM_Parse (&s);
 			value = atoi(token);
