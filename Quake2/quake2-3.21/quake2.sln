@@ -1,21 +1,15 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "quake2", "quake2.vcproj", "{2EAA88A9-C57F-4870-BD2D-507EBDAE7EA7}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B09E0700-BDDD-4890-8A7F-6D0108432909} = {B09E0700-BDDD-4890-8A7F-6D0108432909}
-		{B44B334D-0658-44EE-BA58-8F516015FE42} = {B44B334D-0658-44EE-BA58-8F516015FE42}
-		{46DDF381-836D-41AE-947B-71662351A7E9} = {46DDF381-836D-41AE-947B-71662351A7E9}
-		{B8FD8AD0-E2F7-4AC7-BE23-50BB1682C1B6} = {B8FD8AD0-E2F7-4AC7-BE23-50BB1682C1B6}
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "quake2", "quake2.vcxproj", "{2EAA88A9-C57F-4870-BD2D-507EBDAE7EA7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ref_soft", "ref_soft\ref_soft.vcproj", "{B8FD8AD0-E2F7-4AC7-BE23-50BB1682C1B6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ref_soft", "ref_soft\ref_soft.vcxproj", "{B8FD8AD0-E2F7-4AC7-BE23-50BB1682C1B6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "game", "game\game.vcproj", "{46DDF381-836D-41AE-947B-71662351A7E9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "game", "game\game.vcxproj", "{46DDF381-836D-41AE-947B-71662351A7E9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ctf", "ctf\ctf.vcproj", "{B09E0700-BDDD-4890-8A7F-6D0108432909}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ctf", "ctf\ctf.vcxproj", "{B09E0700-BDDD-4890-8A7F-6D0108432909}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ref_gl", "ref_gl\ref_gl.vcproj", "{B44B334D-0658-44EE-BA58-8F516015FE42}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ref_gl", "ref_gl\ref_gl.vcxproj", "{B44B334D-0658-44EE-BA58-8F516015FE42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
